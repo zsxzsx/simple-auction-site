@@ -37,14 +37,17 @@ public interface PaymentLocal extends EJBLocalObject {
     Integer getSecurityCode();
 
     void setSecurityCode(Integer securityCode);
-
+// tcc
     UserLocal getBuyerNo();
-
     void setBuyerNo(UserLocal buyerNo);
-
     AuctionLocal getAuction();
-
     void setAuction(AuctionLocal auction);
 
+/*
+    Integer getBuyerNo();
+    void setBuyerNo(Integer buyerNo);
+    Integer getAuction();
+    void setAuction(Integer auction);
+*/
 
 }

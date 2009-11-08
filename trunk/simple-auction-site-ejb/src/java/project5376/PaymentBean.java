@@ -112,13 +112,15 @@ public abstract class PaymentBean implements EntityBean {
     public abstract Integer getSecurityCode();
 
     public abstract void setSecurityCode(Integer securityCode);
-
+// tcc
     public abstract UserLocal getBuyerNo();
-
     public abstract void setBuyerNo(UserLocal buyerNo);
+//    public abstract Integer getBuyerNo();
+//    public abstract void setBuyerNo(Integer buyerNo);
 
     public abstract AuctionLocal getAuction();
-
     public abstract void setAuction(AuctionLocal auction);
+//    public abstract Integer getAuction();
+//    public abstract void setAuction(Integer auction);
 
 }

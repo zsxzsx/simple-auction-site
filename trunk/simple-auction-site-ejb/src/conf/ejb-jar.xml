@@ -392,11 +392,11 @@
             </query>
             </entity>
         </enterprise-beans>
-<!--    <relationships>
+        <relationships>
         <ejb-relation>
             <ejb-relation-name>Auction-Item</ejb-relation-name>
             <ejb-relationship-role>
-                <ejb-relationship-role-name>Auction</ejb-relationship-role-name>
+                <ejb-relationship-role-name>Auction has one Item</ejb-relationship-role-name>
                 <multiplicity>Many</multiplicity>
                 <relationship-role-source>
                     <ejb-name>AuctionBean</ejb-name>
@@ -408,7 +408,7 @@
             <ejb-relationship-role>
                 <ejb-relationship-role-name>Item</ejb-relationship-role-name>
                 <multiplicity>One</multiplicity>
-                <! <cascade-delete/> 
+                 
                 <relationship-role-source>
                     <ejb-name>ItemBean</ejb-name>
                 </relationship-role-source>
@@ -421,7 +421,7 @@
         <ejb-relation>
             <ejb-relation-name>Auction-User</ejb-relation-name>
             <ejb-relationship-role>
-                <ejb-relationship-role-name>Auction</ejb-relationship-role-name>
+                <ejb-relationship-role-name>Auction has one User</ejb-relationship-role-name>
                 <multiplicity>Many</multiplicity>
                 <relationship-role-source>
                     <ejb-name>AuctionBean</ejb-name>
@@ -433,7 +433,7 @@
             <ejb-relationship-role>
                 <ejb-relationship-role-name>User</ejb-relationship-role-name>
                 <multiplicity>One</multiplicity>
-                <! <cascade-delete/> 
+                 
                 <relationship-role-source>
                     <ejb-name>UserBean</ejb-name>
                 </relationship-role-source>
@@ -446,7 +446,7 @@
         <ejb-relation>
             <ejb-relation-name>Payment-User</ejb-relation-name>
             <ejb-relationship-role>
-                <ejb-relationship-role-name>Payment</ejb-relationship-role-name>
+                <ejb-relationship-role-name>Payment has one User</ejb-relationship-role-name>
                 <multiplicity>Many</multiplicity>
                 <relationship-role-source>
                     <ejb-name>PaymentBean</ejb-name>
@@ -458,7 +458,7 @@
             <ejb-relationship-role>
                 <ejb-relationship-role-name>User</ejb-relationship-role-name>
                 <multiplicity>One</multiplicity>
-                <! <cascade-delete/>
+                
                 <relationship-role-source>
                     <ejb-name>UserBean</ejb-name>
                 </relationship-role-source>
@@ -471,7 +471,7 @@
         <ejb-relation>
             <ejb-relation-name>Payment-Auction</ejb-relation-name>
             <ejb-relationship-role>
-                <ejb-relationship-role-name>Payment</ejb-relationship-role-name>
+                <ejb-relationship-role-name>Payment has one Auction</ejb-relationship-role-name>
                 <multiplicity>Many</multiplicity>
                 <relationship-role-source>
                     <ejb-name>PaymentBean</ejb-name>
@@ -483,7 +483,7 @@
             <ejb-relationship-role>
                 <ejb-relationship-role-name>Auction</ejb-relationship-role-name>
                 <multiplicity>One</multiplicity>
-                <! <cascade-delete/> 
+                 
                 <relationship-role-source>
                     <ejb-name>AuctionBean</ejb-name>
                 </relationship-role-source>
@@ -496,7 +496,7 @@
         <ejb-relation>
             <ejb-relation-name>Rating-User</ejb-relation-name>
             <ejb-relationship-role>
-                <ejb-relationship-role-name>Rating</ejb-relationship-role-name>
+                <ejb-relationship-role-name>Rating has one Rated User</ejb-relationship-role-name>
                 <multiplicity>Many</multiplicity>
                 <relationship-role-source>
                     <ejb-name>RatingBean</ejb-name>
@@ -508,7 +508,7 @@
             <ejb-relationship-role>
                 <ejb-relationship-role-name>User</ejb-relationship-role-name>
                 <multiplicity>One</multiplicity>
-                <! <cascade-delete/>
+                
                 <relationship-role-source>
                     <ejb-name>UserBean</ejb-name>
                 </relationship-role-source>
@@ -521,7 +521,7 @@
         <ejb-relation>
             <ejb-relation-name>Rating-User-1</ejb-relation-name>
             <ejb-relationship-role>
-                <ejb-relationship-role-name>Rating</ejb-relationship-role-name>
+                <ejb-relationship-role-name>Rating has one Rating User</ejb-relationship-role-name>
                 <multiplicity>Many</multiplicity>
                 <relationship-role-source>
                     <ejb-name>RatingBean</ejb-name>
@@ -533,7 +533,7 @@
             <ejb-relationship-role>
                 <ejb-relationship-role-name>User</ejb-relationship-role-name>
                 <multiplicity>One</multiplicity>
-                <! <cascade-delete/> 
+                 
                 <relationship-role-source>
                     <ejb-name>UserBean</ejb-name>
                 </relationship-role-source>
@@ -546,7 +546,7 @@
         <ejb-relation>
             <ejb-relation-name>Bid-Auction</ejb-relation-name>
             <ejb-relationship-role>
-                <ejb-relationship-role-name>Bid</ejb-relationship-role-name>
+                <ejb-relationship-role-name>Bid has one Auction</ejb-relationship-role-name>
                 <multiplicity>Many</multiplicity>
                 <relationship-role-source>
                     <ejb-name>BidBean</ejb-name>
@@ -558,7 +558,7 @@
             <ejb-relationship-role>
                 <ejb-relationship-role-name>Auction</ejb-relationship-role-name>
                 <multiplicity>One</multiplicity>
-                <! <cascade-delete/> 
+                 
                 <relationship-role-source>
                     <ejb-name>AuctionBean</ejb-name>
                 </relationship-role-source>
@@ -571,7 +571,7 @@
         <ejb-relation>
             <ejb-relation-name>Bid-User</ejb-relation-name>
             <ejb-relationship-role>
-                <ejb-relationship-role-name>Bid</ejb-relationship-role-name>
+                <ejb-relationship-role-name>Bid has one User</ejb-relationship-role-name>
                 <multiplicity>Many</multiplicity>
                 <relationship-role-source>
                     <ejb-name>BidBean</ejb-name>
@@ -583,7 +583,7 @@
             <ejb-relationship-role>
                 <ejb-relationship-role-name>User</ejb-relationship-role-name>
                 <multiplicity>One</multiplicity>
-                <! <cascade-delete/> 
+                 
                 <relationship-role-source>
                     <ejb-name>UserBean</ejb-name>
                 </relationship-role-source>
@@ -594,7 +594,7 @@
             </ejb-relationship-role>
         </ejb-relation>
         </relationships>
-        -->
+       
     <assembly-descriptor>
         <container-transaction>
             <method>

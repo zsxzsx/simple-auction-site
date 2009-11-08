@@ -8,7 +8,7 @@
 
   <weblogic-rdbms-bean>
     <ejb-name>AuctionBean</ejb-name>
-    <data-source-name>MySQL_Local_DataSource</data-source-name>
+    <data-source-name>MySQLDS</data-source-name>
     <table-map>
       <table-name>auction</table-name>
       <field-map>
@@ -27,7 +27,7 @@
   </weblogic-rdbms-bean>
   <weblogic-rdbms-bean>
     <ejb-name>BidBean</ejb-name>
-    <data-source-name>MySQL_Local_DataSource</data-source-name>
+    <data-source-name>MySQLDS</data-source-name>
     <table-map>
       <table-name>bid</table-name>
       <field-map>
@@ -42,7 +42,7 @@
   </weblogic-rdbms-bean>
   <weblogic-rdbms-bean>
     <ejb-name>ItemBean</ejb-name>
-    <data-source-name>MySQL_Local_DataSource</data-source-name>
+    <data-source-name>MySQLDS</data-source-name>
     <table-map>
       <table-name>item</table-name>
       <field-map>
@@ -65,7 +65,7 @@
   </weblogic-rdbms-bean>
   <weblogic-rdbms-bean>
     <ejb-name>PaymentBean</ejb-name>
-    <data-source-name>MySQL_Local_DataSource</data-source-name>
+    <data-source-name>MySQLDS</data-source-name>
     <table-map>
       <table-name>payment</table-name>
       <field-map>
@@ -96,7 +96,7 @@
   </weblogic-rdbms-bean>
   <weblogic-rdbms-bean>
     <ejb-name>RatingBean</ejb-name>
-    <data-source-name>MySQL_Local_DataSource</data-source-name>
+    <data-source-name>MySQLDS</data-source-name>
     <table-map>
       <table-name>rating</table-name>
       <field-map>
@@ -115,7 +115,7 @@
   </weblogic-rdbms-bean>
   <weblogic-rdbms-bean>
     <ejb-name>UserBean</ejb-name>
-    <data-source-name>MySQL_Local_DataSource</data-source-name>
+    <data-source-name>MySQLDS</data-source-name>
     <table-map>
       <table-name>user</table-name>
       <field-map>
@@ -160,9 +160,9 @@
       </field-map>
     </table-map>
   </weblogic-rdbms-bean>
-  <!--
+  
   <weblogic-rdbms-relation>
-    <relation-name>Auction - Item</relation-name>
+    <relation-name>Auction-Item</relation-name>
     <weblogic-relationship-role>
       <relationship-role-name>Auction has one Item</relationship-role-name>
       <relationship-role-map>
@@ -174,7 +174,7 @@
     </weblogic-relationship-role>
   </weblogic-rdbms-relation>
   <weblogic-rdbms-relation>
-    <relation-name>Auction - User</relation-name>
+    <relation-name>Auction-User</relation-name>
     <weblogic-relationship-role>
       <relationship-role-name>Auction has one User</relationship-role-name>
       <relationship-role-map>
@@ -186,7 +186,7 @@
     </weblogic-relationship-role>
   </weblogic-rdbms-relation>
   <weblogic-rdbms-relation>
-    <relation-name>Payment - User</relation-name>
+    <relation-name>Payment-User</relation-name>
     <weblogic-relationship-role>
       <relationship-role-name>Payment has one User</relationship-role-name>
       <relationship-role-map>
@@ -198,7 +198,7 @@
     </weblogic-relationship-role>
   </weblogic-rdbms-relation>
   <weblogic-rdbms-relation>
-    <relation-name>Payment - Auction</relation-name>
+    <relation-name>Payment-Auction</relation-name>
     <weblogic-relationship-role>
       <relationship-role-name>Payment has one Auction</relationship-role-name>
       <relationship-role-map>
@@ -210,14 +210,14 @@
     </weblogic-relationship-role>
   </weblogic-rdbms-relation>
   <weblogic-rdbms-relation>
-    <relation-name>Rating - User</relation-name>
+    <relation-name>Rating-User</relation-name>
     <weblogic-relationship-role>
-      <relationship-role-name>Rating has one User</relationship-role-name>
+      <relationship-role-name>Rating has one Rated User</relationship-role-name>
       <relationship-role-map>
-        <column-map>
+        <!-- tcc <column-map>
           <foreign-key-column>RaterId</foreign-key-column>
           <key-column>UserNo</key-column>
-        </column-map>
+        </column-map> -->
         <column-map>
           <foreign-key-column>RatedUserId</foreign-key-column>
           <key-column>UserNo</key-column>
@@ -226,23 +226,23 @@
     </weblogic-relationship-role>
   </weblogic-rdbms-relation>
   <weblogic-rdbms-relation>
-    <relation-name>Rating - User(1)</relation-name>
+    <relation-name>Rating-User-1</relation-name>
     <weblogic-relationship-role>
-      <relationship-role-name>Rating has one User</relationship-role-name>
+      <relationship-role-name>Rating has one Rating User</relationship-role-name>
       <relationship-role-map>
         <column-map>
           <foreign-key-column>RaterId</foreign-key-column>
           <key-column>UserNo</key-column>
         </column-map>
-        <column-map>
+<!-- tcc        <column-map>
           <foreign-key-column>RatedUserId</foreign-key-column>
           <key-column>UserNo</key-column>
-        </column-map>
+        </column-map> -->
       </relationship-role-map>
     </weblogic-relationship-role>
   </weblogic-rdbms-relation>
   <weblogic-rdbms-relation>
-    <relation-name>Bid - Auction</relation-name>
+    <relation-name>Bid-Auction</relation-name>
     <weblogic-relationship-role>
       <relationship-role-name>Bid has one Auction</relationship-role-name>
       <relationship-role-map>
@@ -254,7 +254,7 @@
     </weblogic-relationship-role>
   </weblogic-rdbms-relation>
   <weblogic-rdbms-relation>
-    <relation-name>Bid - User</relation-name>
+    <relation-name>Bid-User</relation-name>
     <weblogic-relationship-role>
       <relationship-role-name>Bid has one User</relationship-role-name>
       <relationship-role-map>
@@ -265,5 +265,5 @@
       </relationship-role-map>
     </weblogic-relationship-role>
   </weblogic-rdbms-relation>
-  -->
+  
 </weblogic-rdbms-jar>
