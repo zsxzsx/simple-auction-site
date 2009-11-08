@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE application PUBLIC "-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN" "http://java.sun.com/dtd/application_1_3.dtd">
+<application>
+  <display-name>simple-auction-site</display-name>
+  <module>
+    <web>
+      <web-uri>simple-auction-site-war.war</web-uri>
+      <context-root>/simple-auction-site-war</context-root>
+    </web>
+  </module>
+  <module>
+    <ejb>simple-auction-site-ejb.jar</ejb>
+  </module>
+</application>
