@@ -259,7 +259,7 @@
             </query>
             </entity>
         <entity>
-            <display-name>UserEB</display-name>
+            <display-name>UserBean</display-name>
             <ejb-name>UserBean</ejb-name>
             <local-home>project5376.UserLocalHome</local-home>
             <local>project5376.UserLocal</local>

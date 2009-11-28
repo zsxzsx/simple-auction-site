@@ -18,7 +18,10 @@ public interface UserLocalHome extends EJBLocalHome {
 
     project5376.UserLocal findByPrimaryKey(java.lang.Integer key)  throws FinderException;
     
-    project5376.UserLocal create(java.lang.Integer key)  throws CreateException;
+//    project5376.UserLocal create(java.lang.Integer key)  throws CreateException;
+    project5376.UserLocal create(java.lang.Integer id, String username, String password,
+            String firstname, String lastname, String address1, String address2, String city,
+            String state, String zip, String email)  throws CreateException;
 
     Collection findByUserNo(Integer userNo) throws javax.ejb.FinderException;
 
