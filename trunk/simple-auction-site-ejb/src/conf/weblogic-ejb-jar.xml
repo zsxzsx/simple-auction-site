@@ -80,6 +80,8 @@
         </persistence-use>
       </persistence>
     </entity-descriptor>
-    <local-jndi-name>Application1-Model-UserLocalHome</local-jndi-name>
+<!--    <local-jndi-name>Application1-Model-UserLocalHome</local-jndi-name> -->
+    <local-jndi-name>UserBean</local-jndi-name>
+<!--    <jndi-name>UserBean</jndi-name> -->
   </weblogic-enterprise-bean>
 </weblogic-ejb-jar>

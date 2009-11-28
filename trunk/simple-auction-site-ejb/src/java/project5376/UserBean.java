@@ -75,20 +75,45 @@ public abstract class UserBean implements EntityBean {
     // </editor-fold>
     
     
-    public java.lang.Integer ejbCreate(java.lang.Integer key)  throws CreateException {
-        if (key == null) {
+    public java.lang.Integer ejbCreate(java.lang.Integer id, String username, String password,
+            String firstname, String lastname, String address1, String address2, String city,
+            String state, String zip, String email)  throws CreateException {
+        System.out.println("inside ejbCreate for User id== " + id.toString());
+
+/*        if (key == null) {
+        System.out.println("inside ejbCreate for User 2222");
+            System.out.println("key == null in ejbCreate");
             throw new CreateException("The field \"key\" must not be null");
-        }
+        }*/
+
+        setUserNo(id);
+        setUserId(username);
+        setPassword(password);
+        setFirstName(firstname);
+        setLastName(lastname);
+        setAddress1(address1);
+        setAddress2(address2);
+//      setCity(city);
+        setState(state);
+        setZipCode(new Integer(zip));
+        setEmail(email);
+
+        System.out.println("inside ejbCreate for User 3333");
         
         // TODO add additional validation code, throw CreateException if data is not valid
 
         return null;
     }
 
-    public void ejbPostCreate(java.lang.Integer key) {
+/*    public void ejbPostCreate(java.lang.Integer key) {
         // TODO populate relationships here if appropriate
     }
-
+*/
+    public void ejbPostCreate(java.lang.Integer id, String username, String password,
+            String firstname, String lastname, String address1, String address2, String city,
+            String state, String zip, String email) {
+            // TODO populate relationships here if appropriate
+    }
     public abstract Integer getUserNo();
 
     public abstract void setUserNo(Integer userNo);
