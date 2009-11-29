@@ -24,6 +24,10 @@
         <servlet-name>homepageServlet</servlet-name>
         <servlet-class>Project5376.homepageServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>editProfile</servlet-name>
+        <servlet-class>Project5376.editProfile</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>homepageServlet</servlet-name>
         <url-pattern>/homepageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editProfile</servlet-name>
+        <url-pattern>/editProfile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

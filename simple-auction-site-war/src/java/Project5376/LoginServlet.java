@@ -69,30 +69,6 @@ public class LoginServlet extends HttpServlet {
 	return new javax.naming.InitialContext( );
   }
    
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally { 
-            out.close();
-        }
-    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -183,14 +159,8 @@ public class LoginServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             if (action==null) {
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Unknown error in gBay</title>");
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>Unknown error post with action == null, please contact webmaster@gbay.com</h1>");
-                out.println("</body>");
-                out.println("</html>");
+                reason = "<h1>Unknown error post with action == null, please contact webmaster@gbay.com</h1>";
+                error_html(out, reason);
             } else if (action.equals("login")) {
                 String status = "fail";
                 Collection user_col=null;
@@ -218,15 +188,7 @@ public class LoginServlet extends HttpServlet {
                //System.out.println("STATUS== " +status);
 
                 if(status.equals("fail")){
-
-                    out.println("<html>");
-                    out.println("<head>");
-                    out.println("<title>Servlet LoginServlet</title>");
-                    out.println("</head>");
-                    out.println("<body>");
-                    out.println(reason);
-                    out.println("</body>");
-                    out.println("</html>");
+                    error_html(out, reason);
                 } else if (status.equals("pass")){
 
                     HttpSession session = request.getSession();
@@ -242,6 +204,10 @@ public class LoginServlet extends HttpServlet {
 
             } else if (action.equals("register.do")){
 
+
+                if (!find_user(username)) {
+                   response.sendRedirect(response.encodeURL("LoginError.html"));
+                }
 
                 String result = register_user(request);
 
@@ -269,9 +235,27 @@ public class LoginServlet extends HttpServlet {
         }
 
     }
+
+    boolean find_user(String username){
+
+        boolean status = true;
+        Collection user_col=null;
+
+        try{
+            user_col = userhome.findByUserId(username);
+        } catch (FinderException fe){
+                status = false;
+        }
+        return status;
+    }
+
     String register_user(HttpServletRequest request){
 
         String status = "pass";
+        Collection user_col=null;
+        Iterator it=null;
+        UserLocal user=null;
+
         try{
             userhome.create(  new Integer(request.getParameter("id")), request.getParameter("username"), request.getParameter("password"),
                 request.getParameter("firstname"), request.getParameter("lastname"), request.getParameter("address1"),
@@ -294,5 +278,16 @@ public class LoginServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void error_html(PrintWriter out, String reason) {
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Servlet LoginServlet</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println(reason);
+        out.println("</body>");
+        out.println("</html>");
+    }
 
 }

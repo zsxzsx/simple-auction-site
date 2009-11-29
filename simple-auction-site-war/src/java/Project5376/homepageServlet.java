@@ -58,6 +58,7 @@ public class homepageServlet extends HttpServlet {
         //processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+// tcc
         HttpSession session = request.getSession();
         String username = (String)session.getAttribute("userID");
 
@@ -79,6 +80,7 @@ public class homepageServlet extends HttpServlet {
                 out.println("</head>");
                 out.println("<body>");
                 out.println("<h3>You are now logged in.</h3><br><br><h1>Welcome to gBay " + username  +"!!</h1>");
+                out.println("<p><a href=\"" + response.encodeURL("editProfile") + "\"> Edit Profile</a></p>");
                 out.println("</body>");
                 out.println("</html>");
             }
