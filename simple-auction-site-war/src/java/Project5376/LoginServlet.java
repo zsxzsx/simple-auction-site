@@ -91,11 +91,17 @@ public class LoginServlet extends HttpServlet {
         if(action == null){
             response.setContentType("text/html");
             PrintWriter out = response.getWriter();
+
             out.println("<html>");
-            out.println("<head><title>gBay</title></head>");
-            out.println("<body>");
-            out.println("<p>Welcome to gBay</p>");
-            out.println("<p>Please log in.</p>");
+            out.println("<head><title>Welcome to gBay</title>");
+            /*
+            out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />");
+            out.println("<link rel=\"stylesheet\" href=\"stripy_tables.css\" type=\"text/css\" />");
+            out.println("<script type=\"text/javascript\" src=\"core.js\"></script>");
+            out.println("<script type=\"text/javascript\" src=\"stripy_tables.js\"></script>
+            */
+            out.println("</head><body>");
+            out.println("<p>Welcome to gBay.  Please log in.</p><br>");
             out.println("<form method=\"POST\" action=\"" +
                             response.encodeURL("LoginServlet?action=login") + "\">");
             out.print("<p>User name: ");
@@ -111,27 +117,38 @@ public class LoginServlet extends HttpServlet {
         } else if (action.equals("register")){
             response.setContentType("text/html");
             PrintWriter out = response.getWriter();
+
+            out.println("<html><head><title>Welcome to gBay</title>");
+            out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />");
+            out.println("<link rel=\"stylesheet\" href=\"stripy_tables.css\" type=\"text/css\" />");
+            out.println("<script type=\"text/javascript\" src=\"core.js\"></script>");
+            out.println("<script type=\"text/javascript\" src=\"stripy_tables.js\"></script></head><body>");
             out.println("<html>");
-            out.println("<head><title>gBay Registration</title></head>");
             out.println("<body>");
-            out.println("<p>gBay Registration</p>");
-            out.println("<p> </p>");
             out.println("<form method=\"POST\" action=\"" +
                             response.encodeURL("LoginServlet?action=register.do") + "\">");
-            out.print("<p>ID(integer): <input type=\"text\" name=\"id\"></p>");
-            out.print("<p>Username: <input type=\"text\" name=\"username\"></p>");
-            out.print("<p>Password: <input type=\"text\" name=\"password\"></p>");
-            out.print("<p>First Name: <input type=\"text\" name=\"firstname\"></p>");
-            out.print("<p>Last Name: <input type=\"text\" name=\"lastname\"></p>");
-            out.print("<p>Address: <input type=\"text\" name=\"address1\"></p>");
-            out.print("<p>Address1: <input type=\"text\" name=\"address2\"></p>");
-            out.print("<p>City: <input type=\"text\" name=\"city\"></p>");
-            out.print("<p>State: <input type=\"text\" name=\"state\"></p>");
-            out.print("<p>Zip: <input type=\"text\" name=\"zip\"></p>");
-            out.print("<p>Email: <input type=\"text\" name=\"email\"></p>");
-            out.print("<p><input type=\"submit\" ");
-            out.println("name=\"Submit\" value=\"Register\"></p>");
-            out.println("</form>");
+            out.println("<div align=\"justify\"><table class=\"dataTable\" width=600 border=0><tbody>");
+
+            out.print("<tr><td>ID(integer): <input type=\"text\" name=\"id\"></td>");
+            out.print("<td>Email: <input align=\"right\" type=\"text\" name=\"email\"></td></tr>");
+
+            out.print("<tr><td>Username: <input align=\"right\" type=\"text\" name=\"username\"></td>");
+            out.print("<td>Address: <input align=\"right\" type=\"text\" name=\"address1\"></td></tr>");
+
+            out.print("<tr><td>Password: <input type=\"text\" name=\"password\"></td>");
+            out.print("<td>Address1: <input type=\"text\" name=\"address2\"></td></tr>");
+
+            out.print("<tr><td>First Name: <input type=\"text\" name=\"firstname\"></td>");
+            out.print("<td>City: <input type=\"text\" name=\"city\"></td></tr>");
+
+            out.print("<tr><td>Last Name: <input type=\"text\" name=\"lastname\"></td>");
+            out.print("<td>State: <input align=\"right\" type=\"text\" name=\"state\"></td></tr>");
+
+            out.print("<tr><td>Zip: <input align=\"right\" type=\"text\" name=\"zip\"></td>");
+            out.print("<td><input type=\"submit\" ");
+
+            out.println("name=\"Submit\" value=\"Register\"></td></tr></table>");
+            out.println("</div></form>");
             out.println("</body></html>");
 
 

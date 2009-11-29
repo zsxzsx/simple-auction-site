@@ -83,5 +83,8 @@ public class ServiceProvider {
         out.println("</html>");
         out.close();
     }
-  
+
+  public static void print_header(){
+
+  }
 }
