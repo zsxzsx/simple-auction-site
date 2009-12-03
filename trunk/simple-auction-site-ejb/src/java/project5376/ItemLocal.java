@@ -33,6 +33,9 @@ public interface ItemLocal extends EJBLocalObject {
     Collection getAuctionCollection();
 
     void setAuctionCollection(Collection auctionCollection);
+    
+
+
 
 
 }

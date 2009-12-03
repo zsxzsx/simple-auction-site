@@ -17,9 +17,9 @@ public interface BidLocal extends EJBLocalObject {
 
     void setBidNo(Integer bidNo);
 
-    int getBidAmt();
+    Integer getBidAmt();
 
-    void setBidAmt(int bidAmt);
+    void setBidAmt(Integer bidAmt);
 
     AuctionLocal getAuctionNo();
 
@@ -29,5 +29,11 @@ public interface BidLocal extends EJBLocalObject {
 
     void setBidderId(UserLocal bidderId);
 
+   // Integer getAuctionNo();
 
+//    void setAuctionNo(Integer auctionNo);
+
+ //   Integer getBidderId();
+
+//    void setBidderId(Integer bidderId);
 }

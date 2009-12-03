@@ -28,4 +28,6 @@ public interface ItemLocalHome extends EJBLocalHome {
 
     Collection findByCondition1(Integer condition1) throws javax.ejb.FinderException;
 
+    Collection findAllItems() throws javax.ejb.FinderException;
+
 }

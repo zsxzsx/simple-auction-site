@@ -85,7 +85,22 @@ public abstract class AuctionBean implements EntityBean {
 
         return null;
     }
+    public Integer ejbCreate(Integer auctionNo, Integer sellerId, Integer itemNo, Timestamp startTime, Timestamp stopTime)  
+                                        throws CreateException
+    {
+        setAuctionNo(auctionNo);
+        setStartTime(startTime);
+        setStopTime(stopTime);
+//        setItemNo(itemNo);
+//  todo neeed to set seller ID
+        //setSellerId(sellerId);
+        return null;
+    }
 
+
+    public void ejbPostCreate(Integer auctionNo, Integer sellerId, Integer itemNo, Timestamp startTime, Timestamp stopTime) {
+        // TODO populate relationships here if appropriate
+    }
     public void ejbPostCreate(java.lang.Integer key) {
         // TODO populate relationships here if appropriate
     }
@@ -106,9 +121,17 @@ public abstract class AuctionBean implements EntityBean {
 
     public abstract void setItemNo(ItemLocal itemNo);
 
+ //   public abstract Integer getItemNo();
+
+//    public abstract void setItemNo(Integer itemNo);
+
     public abstract UserLocal getSellerId();
 
     public abstract void setSellerId(UserLocal sellerId);
+
+ //   public abstract Integer getSellerId();
+
+//    public abstract void setSellerId(Integer sellerId);
 
     public abstract Collection getPaymentCollection();
 
