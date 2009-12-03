@@ -1,12 +1,12 @@
-﻿drop table Payment;
-drop table Rating;
-drop table Bid;
-drop table Auction;
-drop table Item;
-drop table User;
+﻿drop table payment;
+drop table rating;
+drop table bid;
+drop table auction;
+drop table item;
+drop table user;
 
 
-create table User
+create table user
 (
 	UserNo integer not null,
 	UserId varchar(80) not null,
@@ -21,7 +21,7 @@ create table User
 	primary key(UserNo)
 );
 
-create table Rating
+create table rating
 (
 	RatingNo integer not null,
 	RaterId integer not null,
@@ -33,7 +33,7 @@ create table Rating
 	foreign key(RatedUserId) references User(UserNo)
 );
 
-create table Item
+create table item
 (
 	ItemNo integer not null,
 	ItemName varchar (80),
@@ -42,7 +42,7 @@ create table Item
 	primary key(ItemNo)
 );
 
-create table Auction
+create table auction
 (
 	AuctionNo integer not null,
 	ItemNo integer not null,
@@ -54,7 +54,7 @@ create table Auction
 	foreign key(SellerId) references User(UserNo)
 );
 
-create table Bid
+create table bid
 (
 	BidNo integer not null,
 	BidderId integer not null,
@@ -65,7 +65,7 @@ create table Bid
 	foreign key(BidderId) references User(UserNo)
 );
 
-create table Payment
+create table payment
 (
 	PaymentNo integer not null,
 	BuyerNo integer not null,

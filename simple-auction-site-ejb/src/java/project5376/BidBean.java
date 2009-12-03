@@ -73,8 +73,23 @@ public abstract class BidBean implements EntityBean {
 
     // </editor-fold>
     
+   public Integer ejbCreate(Integer key, Integer bidAmt,Integer bidderId,Integer auctionNo)  throws CreateException
+    {
+       setBidNo(key);
+       setBidAmt(bidAmt);
+     //todo   setBidderId(bidderId);
+     //  setAuctionNo(auctionNo);
+       return null;
+    }
     
-    public java.lang.Integer ejbCreate(java.lang.Integer key)  throws CreateException {
+/*
+ The error was: AuctionBean: setSellerId: Abstract getXXX and setXXX methods for container managed fields may not be overloaded. 
+ AuctionBean: setItemNo: Abstract getXXX and setXXX methods for container managed fields may not be overloaded. BidBean: setAuctionNo:
+ Abstract getXXX and setXXX methods for container managed fields may not be overloaded. BidBean: setBidderId: Abstract 
+ getXXX and setXXX methods for container managed fields may not be overloaded. . at weblogic.ejb20.ejbc.EJBCompiler.doCompile
+ (EJBCompiler.java:255) at 
+ *
+ public java.lang.Integer ejbCreate(java.lang.Integer key)  throws CreateException {
         if (key == null) {
             throw new CreateException("The field \"key\" must not be null");
         }
@@ -83,24 +98,36 @@ public abstract class BidBean implements EntityBean {
 
         return null;
     }
-
-    public void ejbPostCreate(java.lang.Integer key) {
+*/
+    public void ejbPostCreate(Integer key, Integer bidAmt,Integer bidderId,Integer auctionNo)
+    {
         // TODO populate relationships here if appropriate
     }
-
+/*    public void ejbPostCreate(java.lang.Integer key) {
+        // TODO populate relationships here if appropriate
+    }
+*/
     public abstract Integer getBidNo();
 
     public abstract void setBidNo(Integer bidNo);
 
-    public abstract int getBidAmt();
+    public abstract Integer getBidAmt();
 
-    public abstract void setBidAmt(int bidAmt);
+    public abstract void setBidAmt(Integer bidAmt);
 
     public abstract AuctionLocal getAuctionNo();
 
+//    public abstract void setAuctionNo(Integer auctionNo);
+
+//    public abstract Integer getAuctionNo();
+
     public abstract void setAuctionNo(AuctionLocal auctionNo);
 
-    public abstract UserLocal getBidderId();
+ //   public abstract Integer getBidderId();
+
+//    public abstract void setBidderId(Integer bidderId);
+    
+   public abstract UserLocal getBidderId();
 
     public abstract void setBidderId(UserLocal bidderId);
 
