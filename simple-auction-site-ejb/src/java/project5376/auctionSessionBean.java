@@ -26,7 +26,8 @@ public class auctionSessionBean implements SessionBean
   private String url;
   private AuctionLocalHome aucHome;
   private AuctionLocal auc;
-  private UserLocalHome user;
+  private UserLocalHome userHome;
+  private UserLocal user;
   private ItemLocalHome itemHome;
   private ItemLocal item;
   private BidLocalHome bidHome;
@@ -34,16 +35,15 @@ public class auctionSessionBean implements SessionBean
   private static int aucPk;
   private static int itemPk;
   private static int bidPk;
-
-	public void auctionSessionBean()
-	{
-
-	   log("Session Bean Create");
+  private static int userPk;
+public void auctionSessionBean()
+{
+    log("Session Bean Create");
      this.url=url;
 
      try
      {
-       aucHome = lookupHome();
+       aucHome = lookupAuctionHome();
      }
      catch (NamingException ne)
      {
@@ -73,7 +73,7 @@ public class auctionSessionBean implements SessionBean
 
      try
      {
-       itemHome = lookupHome2();
+       itemHome = lookupItemHome();
      }
      catch (NamingException ne)
      {
@@ -103,7 +103,37 @@ public class auctionSessionBean implements SessionBean
 
      try
      {
-       bidHome = lookupHome3();
+       itemHome = lookupItemHome();
+     }
+     catch (NamingException ne)
+     {
+       log("The client was unable to lookup the EJBHome. Please make sure "
+           + "that you have deployed the ejb with the JNDI name "
+           + "ItemBean on the WebLogic server at " + url);
+     }
+     itemPk = 0;
+     try
+     {
+      Collection col = (Collection)userHome.findAllUsers();
+      Iterator it = col.iterator();
+      while (it.hasNext())
+      {
+        user = (UserLocal) PortableRemoteObject.narrow(it.next(), UserLocal.class);
+
+        if ((user.getUserNo()).intValue() > userPk)
+        {
+          userPk = (user.getUserNo()).intValue();
+        }
+      }
+    }
+    catch (Exception e)
+    {
+	    System.out.println("User Primary Key find error: "+e);
+    }
+
+     try
+     {
+       bidHome = lookupBidHome();
      }
      catch (NamingException ne)
      {
@@ -114,17 +144,17 @@ public class auctionSessionBean implements SessionBean
      bidPk = 0;
      try
      {
-//      Collection col = (Collection)bidHome.findAllBids();
-//      Iterator it = col.iterator();
-//      while (it.hasNext())
-//      {
-//        bid = (BidLocal) PortableRemoteObject.narrow(it.next(), BidLocal.class);
+      Collection col = (Collection)bidHome.findAllBids();
+      Iterator it = col.iterator();
+      while (it.hasNext())
+      {
+        bid = (BidLocal) PortableRemoteObject.narrow(it.next(), BidLocal.class);
 
-//        if ((bid.getBidNo()).intValue() > bidPk)
-//        {
-//          bidPk = (bid.getBidNo()).intValue();
-//        }
- //     }
+        if ((bid.getBidNo()).intValue() > bidPk)
+        {
+          bidPk = (bid.getBidNo()).intValue();
+        }
+      }
     }
     catch (Exception e)
     {
@@ -135,7 +165,7 @@ public class auctionSessionBean implements SessionBean
 
 	}
 
-	private AuctionLocalHome lookupHome() throws NamingException
+	private AuctionLocalHome lookupAuctionHome() throws NamingException
   {
     ctx = getInitialContext();
     try
@@ -152,7 +182,7 @@ public class auctionSessionBean implements SessionBean
     }
   }
 
-  private ItemLocalHome lookupHome2() throws NamingException
+  private ItemLocalHome lookupItemHome() throws NamingException
   {
     ctx = getInitialContext();
     try
@@ -169,7 +199,7 @@ public class auctionSessionBean implements SessionBean
     }
   }
 
-  private BidLocalHome lookupHome3() throws NamingException
+  private BidLocalHome lookupBidHome() throws NamingException
   {
     ctx = getInitialContext();
     try
@@ -182,6 +212,22 @@ public class auctionSessionBean implements SessionBean
       log("The client was unable to lookup the EJBHome. Please make sure "
            + "that you have deployed the ejb with the JNDI name "
            + "BidBean on the WebLogic server at " + url);
+      throw ne;
+    }
+  }
+  private UserLocalHome lookupUserHome() throws NamingException
+  {
+    ctx = getInitialContext();
+    try
+    {
+      Object home = ctx.lookup("userBean");
+      return (UserLocalHome) PortableRemoteObject.narrow(home, UserLocalHome.class);
+    }
+    catch (NamingException ne)
+    {
+      log("The client was unable to lookup the EJBHome. Please make sure "
+           + "that you have deployed the ejb with the JNDI name "
+           + "UserBean on the WebLogic server at " + url);
       throw ne;
     }
   }
@@ -205,7 +251,7 @@ public class auctionSessionBean implements SessionBean
     }
   }
 
-  public void addAuction(Integer sellerId, Date startTime, Date stopTime, String itemName, String itemDesc, String itemCond) throws RemoteException
+  public void addAuction(Integer sellerNo, Date startTime, Date stopTime, String itemName, String itemDesc, String itemCond) throws RemoteException
   {
 
     aucPk = aucPk + 1;
@@ -216,10 +262,12 @@ public class auctionSessionBean implements SessionBean
 
     try
     {
-      aucHome.create( auctionNo);
-
+      Integer cond = new Integer(itemCond);
+      ItemLocal itemInstance = itemHome.create(itemNo, itemName, itemDesc, cond);
+      UserLocal sellerId = userHome.findByUserNo(sellerNo);
       Timestamp startTimeStamp = new Timestamp(startTime.getTime());
       Timestamp stopTimeStamp = new Timestamp(stopTime.getTime());
+      aucHome.create(auctionNo, sellerId, itemInstance, startTimeStamp, stopTimeStamp);
 //      auc.setItemNo( itemNo);
 //      auc.setStartTime( startTimeStamp);
 //      auc.setStopTime( stopTimeStamp);

@@ -21,7 +21,7 @@ public interface AuctionLocalHome extends EJBLocalHome {
     
     project5376.AuctionLocal create(java.lang.Integer key)  throws CreateException;
 
-    project5376.AuctionLocal create(Integer auctionNo, Integer sellerId, Integer itemNo, Timestamp startTime, Timestamp stopTime)  throws CreateException;
+    project5376.AuctionLocal create(Integer auctionNo, UserLocal sellerId, ItemLocal itemNo, Timestamp startTime, Timestamp stopTime)  throws CreateException;
 
     Collection findByAuctionNo(Integer auctionNo) throws javax.ejb.FinderException;
         

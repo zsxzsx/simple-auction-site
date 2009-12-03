@@ -337,6 +337,14 @@
             <primkey-field>userNo</primkey-field>
             <query>
                 <query-method>
+                    <method-name>findAllUsers</method-name>
+                    <method-params>
+                    </method-params>
+                </query-method>
+                <ejb-ql>SELECT OBJECT(u) FROM User AS u</ejb-ql>
+            </query>
+            <query>
+                <query-method>
                     <method-name>findByUserNo</method-name>
                     <method-params>
                         <method-param>java.lang.Integer</method-param>

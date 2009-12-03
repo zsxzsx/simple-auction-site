@@ -23,7 +23,7 @@ public interface UserLocalHome extends EJBLocalHome {
             String firstname, String lastname, String address1, String address2, String city,
             String state, String zip, String email)  throws CreateException;
 
-    Collection findByUserNo(Integer userNo) throws javax.ejb.FinderException;
+    UserLocal findByUserNo(Integer userNo) throws javax.ejb.FinderException;
 
     Collection findByUserId(String userId) throws javax.ejb.FinderException;
 
@@ -43,4 +43,5 @@ public interface UserLocalHome extends EJBLocalHome {
 
     Collection findByPassword(String password) throws javax.ejb.FinderException;
 
+    Collection findAllUsers() throws javax.ejb.FinderException;
 }

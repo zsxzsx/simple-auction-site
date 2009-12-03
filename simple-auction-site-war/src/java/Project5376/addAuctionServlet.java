@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package project5376;
+package Project5376;
 
 import java.util.Collection;
 import java.util.*;
@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
-
+import project5376.*;
 
 
 
@@ -91,21 +91,25 @@ public class addAuctionServlet extends HttpServlet
   public void doPost(HttpServletRequest req,HttpServletResponse res)
                     throws ServletException,IOException
   {
+    System.out.println("in doPost of addAuctionServlet");
     int error = 1;
     HttpSession session = req.getSession();
     Date startAuc= new Date();
-    Date stopAuc= new Date();
-    System.out.println("in doPost of addAuctionServlet");
+    Date stopAuc= new Date();   
     PrintWriter out = res.getWriter();
     String name = req.getParameter("itemName");
     if (name.compareTo("") == 0)
     {
       error = error * 2; // No Item to auction
     }
-    String desc = req.getParameter("itemDesc");
-    String cond = req.getParameter("itemCond");
+    else System.out.println("Why isn't name failing?");
+    String desc = req.getParameter("itemDesc").trim();
+    String cond = req.getParameter("itemCond").trim();
     String start = req.getParameter("startTime");
     String stop = req.getParameter("stopTime");
+    System.out.println("Name: " + name + " start " + start + " end " +
+                stop + " desc " + desc + " cond " + cond);
+
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mma");
     if  ((start.compareTo("") == 0)||(stop.compareTo("") == 0))
     {
@@ -149,7 +153,7 @@ public class addAuctionServlet extends HttpServlet
         error = error * 5; //auction already ended
       }
     }
-    Integer seller = (Integer)session.getAttribute("userId");;
+    Integer seller = (Integer)session.getAttribute("userId");
     if (error > 1)
     {
       generateErrorPage(out, error);
