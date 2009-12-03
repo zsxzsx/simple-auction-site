@@ -3,6 +3,22 @@
 "-//BEA Systems, Inc.//DTD WebLogic 8.1.0 EJB//EN"
 "http://www.bea.com/servers/wls810/dtd/weblogic-ejb-jar.dtd" >
 <weblogic-ejb-jar>
+  <weblogic-enterprise-bean>
+    <ejb-name>auctionSessionBean</ejb-name>
+    <stateless-session-descriptor>
+      <pool>
+      </pool>
+
+      <stateless-clustering>
+      </stateless-clustering>
+
+    </stateless-session-descriptor>
+
+    <transaction-descriptor>
+    </transaction-descriptor>
+
+    <jndi-name>auctionSessionBean</jndi-name>
+  </weblogic-enterprise-bean>
 
   <weblogic-enterprise-bean>
     <ejb-name>AuctionBean</ejb-name>
@@ -15,7 +31,7 @@
         </persistence-use>
       </persistence>
     </entity-descriptor>
-    <local-jndi-name>Application1-Model-AuctionLocalHome</local-jndi-name>
+    <local-jndi-name>AuctionBean</local-jndi-name>
   </weblogic-enterprise-bean>
   <weblogic-enterprise-bean>
     <ejb-name>BidBean</ejb-name>
@@ -28,7 +44,7 @@
         </persistence-use>
       </persistence>
     </entity-descriptor>
-    <local-jndi-name>Application1-Model-BidLocalHome</local-jndi-name>
+    <local-jndi-name>BidBean</local-jndi-name>
   </weblogic-enterprise-bean>
   <weblogic-enterprise-bean>
     <ejb-name>ItemBean</ejb-name>
@@ -41,7 +57,7 @@
         </persistence-use>
       </persistence>
     </entity-descriptor>
-    <local-jndi-name>Application1-Model-ItemLocalHome</local-jndi-name>
+    <local-jndi-name>ItemBean</local-jndi-name>
   </weblogic-enterprise-bean>
   <weblogic-enterprise-bean>
     <ejb-name>PaymentBean</ejb-name>
@@ -54,7 +70,7 @@
         </persistence-use>
       </persistence>
     </entity-descriptor>
-    <local-jndi-name>Application1-Model-PaymentLocalHome</local-jndi-name>
+    <local-jndi-name>PaymentBean</local-jndi-name>
   </weblogic-enterprise-bean>
   <weblogic-enterprise-bean>
     <ejb-name>RatingBean</ejb-name>
@@ -67,7 +83,7 @@
         </persistence-use>
       </persistence>
     </entity-descriptor>
-    <local-jndi-name>Application1-Model-RatingLocalHome</local-jndi-name>
+    <local-jndi-name>RatingBean</local-jndi-name>
   </weblogic-enterprise-bean>
   <weblogic-enterprise-bean>
     <ejb-name>UserBean</ejb-name>
@@ -80,8 +96,7 @@
         </persistence-use>
       </persistence>
     </entity-descriptor>
-<!--    <local-jndi-name>Application1-Model-UserLocalHome</local-jndi-name> -->
     <local-jndi-name>UserBean</local-jndi-name>
-<!--    <jndi-name>UserBean</jndi-name> -->
+
   </weblogic-enterprise-bean>
 </weblogic-ejb-jar>

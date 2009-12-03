@@ -2,14 +2,52 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
   <head>
-    <title>Welcome to gBay</title>
+    <title>gBay - Create Auction</title>
     <meta http-equiv="Content-Type"
         content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="stripy_tables.css" type="text/css" />
     <script type="text/javascript" src="core.js"></script>
     <script type="text/javascript" src="stripy_tables.js"></script>
+    <script type="text/javascript" src="datetimepicker_css.js"></script>
   </head>
 <body>
-<h3>this is new auction2.html<h3></body>
+<h3>Enter the following information to create a new auction<h3>
+   <form name="addAuction" action="addAuctionServlet" method="post">
+      Item Name:
+        <input type="text" name="itemName" size="40" />
+        <br />
+      Description:<br />
+      <textarea rows="5" cols="30" type="text" name="itemDesc">   </textarea>
+        <br />
+      Condition:
+        <select type=text name="itemCond"> 
+        <option value="1">New</option>
+        <option value="2">Like new</option>
+        <option value="3">Fine</option>
+        <option value="4">Very Good</option>
+        <option value="5">Good</option>
+        <option value="6">Fair</option>
+        <option value="7">Poor</option>
+      </select>          <br />
+      <p>
+      Auction Start Time:
+        <input id="demo2" type="text" name="startTime" size="25">
+            <a href="javascript:NewCssCal('demo2','yyyyMMdd','DropDown',true,12)">
+                <img src="cal.gif" width="16" height="16" border="0" alt="Pick a date">
+            </a>
+            <br />
+      </p>
+            <p>
+      Auction Stop Time:
+        <input id="demo14" type="text" name="stopTime" size="25">
+            <a href="javascript:NewCssCal('demo14','yyyyMMdd','DropDown',true,12)">
+                <img src="cal.gif" width="16" height="16" border="0" alt="Pick a date">
+            </a>
+
+            <br />
+             </p> 
+      <br /><input type=submit value="Submit">
+    </form>
+  </body>
 </html>
 

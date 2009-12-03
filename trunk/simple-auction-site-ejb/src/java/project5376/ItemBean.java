@@ -84,11 +84,21 @@ public abstract class ItemBean implements EntityBean {
 
         return null;
     }
+    public java.lang.Integer ejbCreate(java.lang.Integer key, String name, String description, Integer condition)  throws CreateException
+    {
+        setItemNo(key);
+        setItemName(name);
+        setDescription(description);
+        setCondition1(condition);
+        return null;
+    }
 
     public void ejbPostCreate(java.lang.Integer key) {
         // TODO populate relationships here if appropriate
     }
-
+public void ejbPostCreate(java.lang.Integer key, String name, String description, Integer condition)  throws CreateException
+    {
+    }
     public abstract Integer getItemNo();
 
     public abstract void setItemNo(Integer itemNo);

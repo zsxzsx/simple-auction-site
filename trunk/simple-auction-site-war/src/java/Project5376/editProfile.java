@@ -29,7 +29,9 @@ public class editProfile extends HttpServlet {
     public void init() throws ServletException {
 		try{
                     userhome = ServiceProvider.lookupUserHome();
-		  } catch (NamingException ne) { System.out.println("Naming Exception in Login Servlet");
+		  } 
+                  catch (Exception e)
+                  { System.out.println("Exception in Login Servlet");
 		  		throw new ServletException();
 		  }
 	}
