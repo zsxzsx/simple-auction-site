@@ -12,8 +12,8 @@ import javax.ejb.EJBLocalHome;
  *
  * @author Rory
  */
-public interface auctionSessionLocalHome extends EJBLocalHome {
+public interface AuctionSessionLocalHome extends EJBLocalHome {
     
-    project5376.auctionSessionLocal create()  throws CreateException;
+    project5376.AuctionSessionLocal create()  throws CreateException;
 
 }

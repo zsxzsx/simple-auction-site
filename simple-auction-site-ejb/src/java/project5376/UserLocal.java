@@ -6,6 +6,7 @@
 package project5376;
 
 import java.util.Collection;
+import java.util.ArrayList;
 import javax.ejb.EJBLocalObject;
 
 /**
@@ -73,6 +74,8 @@ public interface UserLocal extends EJBLocalObject {
     Collection getBidCollection();
 
     void setBidCollection(Collection bidCollection);
-
+      ArrayList getUserAuctions();
+      ArrayList getUserBids();
+      ArrayList getSellerRatings();
 
 }

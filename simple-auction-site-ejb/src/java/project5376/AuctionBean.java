@@ -6,7 +6,7 @@
 package project5376;
 
 import java.sql.Timestamp;
-import java.util.Collection;
+import java.util.*;
 import javax.ejb.CreateException;
 import javax.ejb.EntityBean;
 import javax.ejb.EntityContext;
@@ -15,7 +15,8 @@ import javax.ejb.EntityContext;
  *
  * @author tcook
  */
-public abstract class AuctionBean implements EntityBean {
+
+public abstract class AuctionBean  implements EntityBean,java.io.Serializable  {
 
     private EntityContext context;
     
@@ -91,9 +92,6 @@ public abstract class AuctionBean implements EntityBean {
         setAuctionNo(auctionNo);
         setStartTime(startTime);
         setStopTime(stopTime);
-//        setItemNo(itemNo);
-//  todo neeed to set seller ID
-        //setSellerId(sellerId);
         return null;
     }
  
@@ -101,6 +99,8 @@ public abstract class AuctionBean implements EntityBean {
 
     public void ejbPostCreate(Integer auctionNo, UserLocal sellerId, ItemLocal itemNo, Timestamp startTime, Timestamp stopTime) {
         // TODO populate relationships here if appropriate
+        setItemNo(itemNo);
+        setSellerId(sellerId);
     }
     public void ejbPostCreate(java.lang.Integer key) {
         // TODO populate relationships here if appropriate
@@ -141,5 +141,17 @@ public abstract class AuctionBean implements EntityBean {
     public abstract Collection getBidCollection();
 
     public abstract void setBidCollection(Collection bidCollection);
+
+    public ArrayList getAuctionBids()
+    {
+        ArrayList list = new ArrayList();
+
+        Iterator c = getBidCollection().iterator();
+        while (c.hasNext())
+        {
+            list.add(c.next());
+        }
+        return list;
+    }
 
 }

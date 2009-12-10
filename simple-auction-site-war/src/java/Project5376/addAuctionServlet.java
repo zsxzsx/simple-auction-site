@@ -23,8 +23,8 @@ import project5376.*;
 
 public class addAuctionServlet extends HttpServlet
 {
-  auctionSessionRemote auction;
-  private auctionSessionRemoteHome home;
+  AuctionSessionRemote auction;
+  private AuctionSessionRemoteHome home;
 
 
   private static void log2 (String s)
@@ -57,10 +57,7 @@ public class addAuctionServlet extends HttpServlet
     System.out.println("in init of addAuctionServlet");
     try
     {
-        // tcc get user from HttpSession do findby user id to get the user bean object
-        // pass down into auctionsessionbean
-
-      auctionSessionRemoteHome home = lookupHome();
+      home = lookupHome();
       auction = home.create();
       System.out.println("create ok");
     }
@@ -70,23 +67,82 @@ public class addAuctionServlet extends HttpServlet
     }
  }
 
-  private auctionSessionRemoteHome lookupHome() throws NamingException
+  private AuctionSessionRemoteHome lookupHome() throws NamingException
   {
     Context ctx = getInitialContext();
     try
     {
-      Object home = ctx.lookup("auctionSessionBean");
-      return (auctionSessionRemoteHome) PortableRemoteObject.narrow(home, auctionSessionRemoteHome.class);
+      Object home = ctx.lookup("AuctionSessionBean");
+      return (AuctionSessionRemoteHome) PortableRemoteObject.narrow(home, AuctionSessionRemoteHome.class);
     }
     catch(NamingException ne)
     {
       log2("The client was unable to lookup the EJB Home.Please make sure"+
           "that you have deployed the ejb with the JNDI name" +
-          "auctionSessionBean.RR1172FacLookUpSessionHome on the WebLogic server at ");
+          "AuctionSessionBean.RR1172FacLookUpSessionHome on the WebLogic server at ");
       throw ne;
     }
   }
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException
+  {
+     //processRequest(request, response);
+     ServletContext ctx = this.getServletContext();
+     HttpSession session = request.getSession();
+     String servletName = this.getServletName();
+     String action = request.getParameter("action");
 
+     log2("\ncalling doGet: action = " + request.getParameter("action") +"\n\n");
+
+     if(action == null)
+     {
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println("<head><title>gBay - Create Auction</title>");
+        out.println("<script type=\"text/javascript\" src=\"datetimepicker_css.js\"></script>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h3>Enter the following information to create a new auction<h3>");
+        out.println("<form name=\"addAuction\" action=\"addAuctionServlet\" method=\"post\">");
+        out.println("Item Name:");
+        out.println("<input type=\"text\" name=\"itemName\" size=\"40\" />");
+        out.println("<br />");
+        out.println("Description:<br />");
+        out.println("<textarea rows=\"5\" cols=\"30\" type=\"text\" name=\"itemDesc\"></textarea>");
+        out.println("<br />");
+        out.println("Condition:");
+        out.println("<select type=text name=\"itemCond\">");
+        out.println("<option value=\"1\">New</option>");
+        out.println("<option value=\"2\">Like new</option>");
+        out.println("<option value=\"3\">Fine</option>");
+        out.println("<option value=\"4\">Very Good</option>");
+        out.println("<option value=\"5\">Good</option>");
+        out.println("<option value=\"6\">Fair</option>");
+        out.println("<option value=\"7\">Poor</option>");
+        out.println("</select><br />");
+        out.println("<p>");
+        out.println("Auction Start Time:");
+        out.println(" <input id=\"demo2\" type=\"text\" name=\"startTime\" size=\"25\">");
+        out.println("<a href=\"javascript:NewCssCal('demo2','yyyyMMdd','DropDown',true,12)\">");
+        out.println("<img src=\"cal.gif\" width=\"16\" height=\"16\" border=\"0\" alt=\"Pick a date\">");
+        out.println("</a>");
+        out.println("<br />");
+        out.println("</p>");
+        out.println("<p>");
+        out.println("Auction Stop Time:");
+        out.println("<input id=\"demo14\" type=\"text\" name=\"stopTime\" size=\"25\">");
+        out.println("<a href=\"javascript:NewCssCal('demo14','yyyyMMdd','DropDown',true,12)\">");
+        out.println("<img src=\"cal.gif\" width=\"16\" height=\"16\" border=\"0\" alt=\"Pick a date\">");
+        out.println(" </a>");
+        out.println("<br />");
+        out.println("</p>");
+        out.println("<br /><input type=submit value=\"Submit\">");
+        out.println("</form>");
+        out.println("</body>");
+        out.println("</html>");
+     }
+
+  }
 
   public void doPost(HttpServletRequest req,HttpServletResponse res)
                     throws ServletException,IOException
@@ -111,16 +167,14 @@ public class addAuctionServlet extends HttpServlet
                 stop + " desc " + desc + " cond " + cond);
 
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mma");
-    if  ((start.compareTo("") == 0)||(stop.compareTo("") == 0))
+    
+    if  (start.compareTo("") == 0)
     {
-      if  (start.compareTo("") == 0)
-      {
-        error = error * 7; // no Start Date
-      }
-      if  (stop.compareTo("") == 0)
-      {
-        error = error * 11; // No Stop Date
-      }
+      error = error * 7; // no Start Date
+    }
+    else if  (stop.compareTo("") == 0)
+    {
+      error = error * 11; // No Stop Date
     }
     else
     {
@@ -153,8 +207,8 @@ public class addAuctionServlet extends HttpServlet
         error = error * 5; //auction already ended
       }
     }
-    Integer seller = (Integer)session.getAttribute("userId");
-    if (error > 1)
+    Integer sellingUser = (Integer)session.getAttribute("userNo");
+     if (error > 1)
     {
       generateErrorPage(out, error);
     }
@@ -162,14 +216,14 @@ public class addAuctionServlet extends HttpServlet
     {
       try
       {
-        auction.addAuction(seller, startAuc, stopAuc, name, desc, cond);
+        auction.addAuction(sellingUser, startAuc, stopAuc, name, desc, cond);
       }
       catch (Exception e)
       {
         log2("There was an error during input of new auction" + e.getMessage());
         return;
       }
-      generateAddAuctionPage(out, name);
+      generateAddAuctionPage(out, name, res);
     }
   }
 
@@ -216,7 +270,7 @@ public class addAuctionServlet extends HttpServlet
   } // end of printErrorPage()
 
 
-  private void generateAddAuctionPage(PrintWriter out, String name)
+  private void generateAddAuctionPage(PrintWriter out, String name, HttpServletResponse response)
   {
     out.println("<html>");
     out.println("<head>");
@@ -225,7 +279,10 @@ public class addAuctionServlet extends HttpServlet
     out.println("<body>");
     out.println(""+name + " has been added to be auctioned.");
     out.println("<p>");
-    out.println("<input type=\"button\" name=\"Menu\" value=\"Back to Menu\" onclick=\"window.location = 'index.html' \" />");
+    
+    out.println("<p><a href=\"" + response.encodeURL("homepageServlet") + "\"> Back to home page</a></p>");
+
+  //  out.println("<input type=\"button\" name=\"Menu\" value=\"Back to Menu\" onclick=\"window.location = 'index.html' \" />");
     out.println("</body>");
     out.println("</html>");
   }

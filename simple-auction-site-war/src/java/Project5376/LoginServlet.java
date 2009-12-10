@@ -1,7 +1,7 @@
 /*
  */
 
-package project5376;
+package Project5376;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -110,15 +110,18 @@ public class LoginServlet extends HttpServlet
         */
         out.println("</head><body>");
         out.println("<p>Welcome to gBay.  Please log in.</p><br>");
-        out.println("<form method=\"POST\" action=\"" +
+        out.println("<form id=\"login\" name=\"login\" method=\"POST\" action=\"" +
                     response.encodeURL("LoginServlet?action=login") + "\">");
         out.print("<p>User name: ");
-        out.println("<input type=\"text\" name=\"username\"></p>");
+        out.println("<input id=\"username\" type=\"text\" name=\"username\"></p>");
         out.print("<p>Password: ");
         out.println("<input type=\"password\" name=\"password\"></p>");
         out.print("<p><input type=\"submit\" ");
         out.println("name=\"Submit\" value=\"Login\"></p>");
         out.println("</form>");
+        out.println("<script type=\"text/javascript\">");
+        out.println("document.login.username.focus();");
+        out.println("</script>");
         out.println("<p><a href=\"" + response.encodeURL("LoginServlet?action=register") + "\"> register</a></p>");
         out.println("</body></html>");
      } 
@@ -206,7 +209,7 @@ public class LoginServlet extends HttpServlet
            reason = "<h1>Unknown username: " + username + "  Please try again.</h1>";
            //System.out.println("\n\nException in " + fe);
 			     //fe.printStackTrace();
-		     }
+	 }
          if(!user_col.isEmpty()) 
          {
            it = user_col.iterator();
@@ -217,6 +220,7 @@ public class LoginServlet extends HttpServlet
               if(user.getPassword().equals(password)) 
               {
                 userNo=user.getUserNo();
+                System.out.println("userNo to set = " + userNo);
                 status = "pass";
                 break;
               }
@@ -232,7 +236,7 @@ public class LoginServlet extends HttpServlet
          {
             HttpSession session = request.getSession();
             session.setAttribute("userID", username);
-            session.setAttribute("userNO", userNo);
+            session.setAttribute("userNo", userNo);
 
             // tcc - cant get the forward to work here, so I used redirect instead.. code for forward is commented out here:
             //ServletContext ctx = this.getServletContext();
