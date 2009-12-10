@@ -4,7 +4,8 @@
  */
 
 package project5376;
-
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Collection;
 import javax.ejb.CreateException;
 import javax.ejb.EntityBean;
@@ -14,7 +15,7 @@ import javax.ejb.EntityContext;
  *
  * @author tcook
  */
-public abstract class UserBean implements EntityBean {
+public abstract class UserBean implements EntityBean, java.io.Serializable {
 
     private EntityContext context;
     
@@ -173,5 +174,37 @@ public abstract class UserBean implements EntityBean {
     public abstract Collection getBidCollection();
 
     public abstract void setBidCollection(Collection bidCollection);
+    public ArrayList getUserAuctions()
+    {
+      ArrayList list = new ArrayList();
 
+        Iterator c = getAuctionCollection().iterator();
+        while (c.hasNext())
+        {
+            list.add(c.next());
+        }
+        return list;
+    }
+public ArrayList getUserBids()
+    {
+      ArrayList list = new ArrayList();
+
+        Iterator c = getBidCollection().iterator();
+        while (c.hasNext())
+        {
+            list.add(c.next());
+        }
+        return list;
+    }
+public ArrayList getSellerRatings()
+ {
+   ArrayList list = new ArrayList();
+
+   Iterator c = getRatingCollection1().iterator();
+   while (c.hasNext())
+   {
+    list.add(c.next());
+   }
+   return list;
+ }
 }

@@ -5,13 +5,13 @@
     <display-name>simple-auction-site-ejb</display-name>
     <enterprise-beans>
         <session>
-            <display-name>auctionSessionSB</display-name>
-            <ejb-name>auctionSessionBean</ejb-name>
-            <home>project5376.auctionSessionRemoteHome</home>
-            <remote>project5376.auctionSessionRemote</remote>
-            <local-home>project5376.auctionSessionLocalHome</local-home>
-            <local>project5376.auctionSessionLocal</local>
-            <ejb-class>project5376.auctionSessionBean</ejb-class>
+            <display-name>AuctionSessionSB</display-name>
+            <ejb-name>AuctionSessionBean</ejb-name>
+            <home>project5376.AuctionSessionRemoteHome</home>
+            <remote>project5376.AuctionSessionRemote</remote>
+            <local-home>project5376.AuctionSessionLocalHome</local-home>
+            <local>project5376.AuctionSessionLocal</local>
+            <ejb-class>project5376.AuctionSessionBean</ejb-class>
             <session-type>Stateless</session-type>
             <transaction-type>Container</transaction-type>
         </session>
@@ -683,7 +683,7 @@
         </container-transaction>
         <container-transaction>
             <method>
-                <ejb-name>auctionSessionBean</ejb-name>
+                <ejb-name>AuctionSessionBean</ejb-name>
                 <method-name>*</method-name>
             </method>
             <trans-attribute>Required</trans-attribute>

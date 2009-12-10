@@ -11,6 +11,6 @@ import javax.ejb.EJBLocalObject;
  *
  * @author Rory
  */
-public interface auctionSessionLocal extends EJBLocalObject {
+public interface AuctionSessionLocal extends EJBLocalObject {
     
 }

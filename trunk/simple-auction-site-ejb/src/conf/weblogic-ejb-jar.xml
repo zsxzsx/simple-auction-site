@@ -4,7 +4,7 @@
 "http://www.bea.com/servers/wls810/dtd/weblogic-ejb-jar.dtd" >
 <weblogic-ejb-jar>
   <weblogic-enterprise-bean>
-    <ejb-name>auctionSessionBean</ejb-name>
+    <ejb-name>AuctionSessionBean</ejb-name>
     <stateless-session-descriptor>
       <pool>
       </pool>
@@ -17,7 +17,7 @@
     <transaction-descriptor>
     </transaction-descriptor>
 
-    <jndi-name>auctionSessionBean</jndi-name>
+    <jndi-name>AuctionSessionBean</jndi-name>
   </weblogic-enterprise-bean>
 
   <weblogic-enterprise-bean>

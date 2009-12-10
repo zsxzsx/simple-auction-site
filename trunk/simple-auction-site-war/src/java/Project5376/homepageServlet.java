@@ -30,6 +30,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import project5376.*;
 import java.util.Collection;
+import java.util.ArrayList;
+import java.sql.Timestamp;
 /**
  *
  * @author tcook
@@ -43,41 +45,42 @@ public class homepageServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private UserLocalHome userhome;
+    AuctionSessionRemote auction;
+    private AuctionSessionRemoteHome home;
+
+
   public void init() throws ServletException
   {
-		try
-		{
-                 userhome = lookupUserHome();
-		}
-		catch (NamingException ne)
-		{
-		  System.out.println("Naming Exception in Login Servlet");
-		  throw new ServletException();
-		}
-  }
-  UserLocalHome lookupUserHome() throws NamingException
-  {
-    Context ctx = getInitialContext();
-    String strBeanName = "UserBean";
 
     try
     {
-      // replace the jndi name to your own
-      Object home = ctx.lookup(strBeanName);
-      return (UserLocalHome) PortableRemoteObject.narrow(home, UserLocalHome.class);
+      home = lookupHome();
+      auction = home.create();
+      System.out.println("create ok");
     }
-    catch (NamingException ne)
+    catch(Exception e)
     {
-      System.out.println("\n\n ERROR!!\n\n Client unable to lookup EJBHome for userbean");
-
-      log("The client was unable to lookup the EJBHome.  Please make sure " +
-      "that you have deployed the ejb with the JNDI name " + strBeanName +
-      "on the WebLogic server at  + url ");  // tcc - fix url here
-
+     System.out.println("Naming Exception in Login Servlet");
+     e.printStackTrace();
+    }
+  }
+    private AuctionSessionRemoteHome lookupHome() throws NamingException
+  {
+    Context ctx = getInitialContext();
+    try
+    {
+      Object home = ctx.lookup("AuctionSessionBean");
+      return (AuctionSessionRemoteHome) PortableRemoteObject.narrow(home, AuctionSessionRemoteHome.class);
+    }
+    catch(NamingException ne)
+    {
+      log("The client was unable to lookup the EJB Home.Please make sure"+
+          "that you have deployed the ejb with the JNDI name" +
+          "AuctionSessionBean.RR1172FacLookUpSessionHome on the WebLogic server at ");
       throw ne;
     }
   }
+
 public static Context getInitialContext( ) throws javax.naming.NamingException
   {
 	  return new javax.naming.InitialContext( );
@@ -118,6 +121,10 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
    PrintWriter out = response.getWriter();
    HttpSession session = request.getSession();
    String username = (String)session.getAttribute("userID");
+   Integer userNo = (Integer)session.getAttribute("userNo");
+   UserLocal user=null;
+   Integer auctionNo = new Integer(0);
+
 
    try
    {
@@ -125,7 +132,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
      {
        out.println("<html>");
        out.println("<head>");
-       out.println("<title>Welcome to gBay!</title>");
+       out.println("<title>Welcome to gBay! Logged In</title>");
        out.println("</head>");
        out.println("<body>");
        out.println("<h1>Invalid userID.  Internal Error, contact administrator.</h1>");
@@ -140,37 +147,119 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
        out.println("</head>");
        out.println("<body>");
        out.println("<h3>You are now logged in.</h3><br><br><h1>Welcome to gBay " + username  +"!!</h1>");
-       out.println("<p><a href=\"" + response.encodeURL("editProfile") + "\"> Edit Profile</a></p>");
-       Integer userNo = (Integer)session.getAttribute("userNo");
-       /*   try
+       ArrayList auctionList = null;
+       
+       try
        {
-         UserLocal user = userhome. findByUserNo(userNo);
-         Collection col = (Collection)user.getAuctionCollection();
-         Iterator it = col.iterator();
-         while (it.hasNext())
+         auctionList = auction.getUserAuctions(userNo);
+       }
+       catch (Exception e)
+       {
+         System.out.println("There was an error in getting the data. HomepageSerlet GetuserAuctions: " + e.getMessage());
+       }
+       out.println("Selling Auctions");
+       if(auctionList.isEmpty())
+       {
+         out.println("You have no open auctions");
+         out.println("<p>");
+       }
+       else
+       {
+         out.println("<table border=\"1\">");
+
+         out.println("<tr>");
+         out.println("<th>Auction #</th>");
+         out.println("<th>Item</th>");
+         out.println("<th>Highest Bidder</th>");
+         out.println("<th>Bid</th>");
+         out.println("<th>Close Date</th>");
+         out.println("</tr>");
+         for (int i = 0; i < auctionList.size(); i++)
          {
-           AuctionLocal auction = (AuctionLocal) PortableRemoteObject.narrow(it.next(), AuctionLocal.class);
-           ItemLocal item = auction.getItemNo();
-           Collection col2 = (Collection)auction.getBidCollection();
-           Iterator itt = col2.iterator();
-         }
-        }
+               Auction auc = (Auction)((ArrayList)auctionList).get(i);
+
+            try
+            {
+              out.println("<tr>");
+              auctionNo= auc.getAuctionNo();
+              out.println("<td><a href=" + response.encodeURL("PlaceBid?auction="+auc.getAuctionNo()) + ">"+ auc.getAuctionNo() +"</a></td>");
+              out.println("<td>" + auc.getItemName() + "</td>");
+              out.println("<td>" + auc.getHighBidder() + "</td>");
+              out.println("<td>" + auc.getHighBid() + "</td>");
+              out.println("<td>" + auc.getStopTime().toString() + "</td>");
+              out.println("</tr>");
+             }
+             catch (Exception e)
+             {
+               log("There was an error in getting  data. " + e.getMessage());
+             }
+           }
+           out.println("</table>");
+       }
+       try
+       {
+         auctionList = auction.getUserBids(userNo);
+       }
         catch (Exception e)
-        {
-	  System.out.println("Item Primary Key find error: "+e);
-        }    */
-      }
-      out.println("</body>");
-      out.println("</html>");
-   }
-   catch (Exception e)
-   {
-     System.out.println("Item Primary Key find error: "+e);
-   }
-   finally
-   {
-     out.close();
-   }
+       {
+         System.out.println("There was an error in getting the data. HomepageSerlet GetUserBids: " + e.getMessage());
+       }
+       out.println("Bidded on Auctions");
+       if(auctionList.isEmpty())
+       {
+         out.println("You have placed bids on no open auctions");
+         out.println("<p>");
+       }
+       else
+       {
+         out.println("<table border=\"1\">");
+
+         out.println("<tr>");
+         out.println("<th>Auction #</th>");
+         out.println("<th>Item</th>");
+         out.println("<th>Highest Bidder</th>");
+         out.println("<th>Bid</th>");
+         out.println("<th>Your Last Bid</th>");
+         out.println("<th>Close Date</th>");
+         out.println("</tr>");
+         for (int i = 0; i < auctionList.size(); i++)
+         {
+               Auction auc = (Auction)((ArrayList)auctionList).get(i);
+
+            try
+            {
+              out.println("<tr>");
+              auctionNo= auc.getAuctionNo();
+              out.println("<td><a href=" + response.encodeURL("PlaceBid?auction="+auc.getAuctionNo()) + ">"+ auc.getAuctionNo() +"</a></td>");
+              out.println("<td>" + auc.getItemName() + "</td>");
+              out.println("<td>" + auc.getHighBidder() + "</td>");
+              out.println("<td>" + auc.getHighBid() + "</td>");
+              out.println("<td>" + auc.getUserBid() + "</td>");
+              out.println("<td>" + auc.getStopTime().toString() + "</td>");
+              out.println("</tr>");
+             }
+             catch (Exception e)
+             {
+               log("There was an error in getting  data. " + e.getMessage());
+             }
+           }
+           out.println("</table>");
+
+         }
+         out.println("<p><a href=\"" + response.encodeURL("editProfile") + "\"> Edit Profile</a></p>");
+         out.println("<p><a href=\"" + response.encodeURL("addAuctionServlet") + "\"> sell</a></p>");
+       }
+       out.println("</body>");
+       out.println("</html>");
+     }
+     catch (Exception e)
+     {
+       System.out.println("Are we failing here? "+e);
+     }
+     finally
+     {
+       out.close();
+     }
  } 
 
     /** 

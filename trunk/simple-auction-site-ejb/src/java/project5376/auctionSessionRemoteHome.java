@@ -3,7 +3,7 @@ package project5376;
 import java.rmi.RemoteException;
 import javax.ejb.CreateException;
 import javax.ejb.EJBHome;
-public interface auctionSessionRemoteHome extends EJBHome
+public interface AuctionSessionRemoteHome extends EJBHome
 {
-  auctionSessionRemote create() throws RemoteException, CreateException;
+  AuctionSessionRemote create() throws RemoteException, CreateException;
 }

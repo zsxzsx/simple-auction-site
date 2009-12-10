@@ -5,21 +5,21 @@
 
 package project5376;
 
+import java.rmi.RemoteException;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.Collection;
 import javax.ejb.EJBLocalObject;
 import javax.ejb.EJBObject;
-
 /**
  *
- * @author tcook
+ * @author Rory
  */
-public interface AuctionLocal extends EJBLocalObject {
+public interface AuctionRemote extends EJBObject{
 
-    Integer getAuctionNo();
+    Integer getAuctionNo() throws RemoteException;
 
-    void setAuctionNo(Integer auctionNo);
-
+ //   void setAuctionNo(Integer auctionNo);
+/*
     Timestamp getStartTime();
 
     void setStartTime(Timestamp startTime);
@@ -35,15 +35,12 @@ public interface AuctionLocal extends EJBLocalObject {
     UserLocal getSellerId();
 
     void setSellerId(UserLocal sellerId);
+*/
+    //Collection getPaymentCollection();
 
-    Collection getPaymentCollection();
+//    void setPaymentCollection(Collection paymentCollection);
 
-    void setPaymentCollection(Collection paymentCollection);
-
-    Collection getBidCollection();
-
-    void setBidCollection(Collection bidCollection);
-
-    ArrayList getAuctionBids();
+    //Collection getBidCollection();
+//   void setBidCollection(Collection bidCollection);
 
 }
