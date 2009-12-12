@@ -5,9 +5,9 @@ import java.rmi.RemoteException;
 import java.util.*;
 import java.util.List;
 
-public interface AuctionSessionRemote extends EJBObject
+public interface auctionSessionRemote extends EJBObject
 {
-  public void AuctionSessionBean() throws RemoteException;
+  public void auctionSessionBean() throws RemoteException;
   public Collection getAllAuctions() throws RemoteException;
   public void addAuction(Integer sellerId, Date startTime, Date stopTime, String itemName, String itemDesc, String itemCond) throws RemoteException;
   public ArrayList getUserAuctions(Integer sellerId) throws RemoteException;

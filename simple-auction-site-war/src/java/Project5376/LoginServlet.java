@@ -102,12 +102,6 @@ public class LoginServlet extends HttpServlet
         PrintWriter out = response.getWriter();
         out.println("<html>");
         out.println("<head><title>Welcome to gBay</title>");
-        /*
-         out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />");
-         out.println("<link rel=\"stylesheet\" href=\"stripy_tables.css\" type=\"text/css\" />");
-         out.println("<script type=\"text/javascript\" src=\"core.js\"></script>");
-         out.println("<script type=\"text/javascript\" src=\"stripy_tables.js\"></script>
-        */
         out.println("</head><body>");
         out.println("<p>Welcome to gBay.  Please log in.</p><br>");
         out.println("<form id=\"login\" name=\"login\" method=\"POST\" action=\"" +
@@ -122,7 +116,7 @@ public class LoginServlet extends HttpServlet
         out.println("<script type=\"text/javascript\">");
         out.println("document.login.username.focus();");
         out.println("</script>");
-        out.println("<p><a href=\"" + response.encodeURL("LoginServlet?action=register") + "\"> register</a></p>");
+        out.println("<p>New User? <a href=\"" + response.encodeURL("LoginServlet?action=register") + "\"> register</a></p>");
         out.println("</body></html>");
      } 
      else if (action.equals("register"))
@@ -134,8 +128,8 @@ public class LoginServlet extends HttpServlet
         out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />");
         out.println("<link rel=\"stylesheet\" href=\"stripy_tables.css\" type=\"text/css\" />");
         out.println("<script type=\"text/javascript\" src=\"core.js\"></script>");
-        out.println("<script type=\"text/javascript\" src=\"stripy_tables.js\"></script></head><body>");
-        out.println("<html>");
+        out.println("<script type=\"text/javascript\" src=\"stripy_tables.js\"></script></head>");
+//        out.println("<html>");
         out.println("<body>");
         out.println("<form method=\"POST\" action=\"" +
                       response.encodeURL("LoginServlet?action=register.do") + "\">");

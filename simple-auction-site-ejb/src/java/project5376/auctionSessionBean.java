@@ -19,7 +19,7 @@ import java.util.Iterator;
 import java.sql.Timestamp;
 
 
-public class AuctionSessionBean implements SessionBean
+public class auctionSessionBean implements SessionBean
 {
   protected SessionContext sctx;
   private Context ctx;
@@ -40,7 +40,7 @@ public class AuctionSessionBean implements SessionBean
   private static int bidPk;
   private static int userPk;
 
-public void AuctionSessionBean()
+public void auctionSessionBean()
 {
     bidAmt= new Integer(0);
     bidder = new String("");
@@ -534,7 +534,7 @@ public  String getItemName(Integer auctionNo) throws RemoteException
 
 	public void ejbCreate()
 	{
-	  AuctionSessionBean();
+	  auctionSessionBean();
 	}
 	public void ejbRemove(){}
 	public void ejbActivate(){}

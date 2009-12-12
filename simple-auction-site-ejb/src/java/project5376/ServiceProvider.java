@@ -1,7 +1,7 @@
 /*
  */
 
-package Project5376;
+package project5376;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -81,26 +81,27 @@ public class ServiceProvider {
       throw ne;
     }
   }
-  public static SearchItemSessionRemoteHome lookupSearchItemSession() throws NamingException
-  {
-    Context ctx = getInitialContext();
-    String strBeanName = "SearchItemSessionBean";
 
-    try {
-      // replace the jndi name to your own
-      Object home = ctx.lookup(strBeanName);
-      return (SearchItemSessionRemoteHome) PortableRemoteObject.narrow(home, SearchItemSessionRemoteHome.class);
+  public static String get_items_html_table(Collection col) {
 
-    } catch (NamingException ne) {
-      System.out.println("\n\n ERROR!!\n\n Client unable to lookup SearchItemSessionLocalHome for search item session bean");
+        String itemall = "";
+        Iterator it;
 
-      System.out.println("The client was unable to lookup the EJBHome.  Please make sure " +
-      "that you have deployed the ejb with the JNDI name " + strBeanName +
-      "on the WebLogic server at  + url ");  // tcc - fix url here
+        if(!col.isEmpty()) {
+            itemall += "<table class=\"dataTable\" width=600 border=0><tr><th>Item No</th><th>Item Name</th><th>Description</th><th>Condition</th></tr>";
+            it = col.iterator();
+            while (it.hasNext()) {
+                    ItemLocal locitem = (ItemLocal)it.next();
+                    itemall += "<tr><td>" + locitem.getItemNo() + "</td>";
+                    itemall += "<td>" + locitem.getItemName() + "</td>";
+                    itemall += "<td>" + locitem.getDescription() + "</td>";
+                    itemall += "<td>" + locitem.getCondition1() + "</td></tr>";
+            }
+            itemall += "</table>";
 
-      throw ne;
+        }
+        return itemall;
     }
-  }
 
   public static Context getInitialContext( ) throws javax.naming.NamingException {
 	return new javax.naming.InitialContext( );
@@ -115,7 +116,7 @@ public class ServiceProvider {
   public static void error_html(PrintWriter out, String reason) {
         out.println("<html>");
         out.println("<head>");
-        out.println("<title>Servlet error</title>");
+        out.println("<title>Servlet LoginServlet</title>");
         out.println("</head>");
         out.println("<body>");
         out.println(reason);
@@ -124,21 +125,7 @@ public class ServiceProvider {
         out.close();
     }
 
+  public static void print_header(){
 
-
-
-
-
-  public static void print_header(PrintWriter out){
-    // todo:  add the css style sheet and javascript to this to keep a consistent header across the servlets.
-        out.println("<html><head><title>Welcome to gBay</title>");
-        out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />");
-        out.println("<link rel=\"stylesheet\" href=\"stripy_tables.css\" type=\"text/css\" />");
-        out.println("<script type=\"text/javascript\" src=\"core.js\"></script>");
-        out.println("<script type=\"text/javascript\" src=\"stripy_tables.js\"></script></head>");
-
-//        return out;
   }
-
-
 }

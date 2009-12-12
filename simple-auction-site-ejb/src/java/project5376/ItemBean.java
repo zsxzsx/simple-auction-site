@@ -14,7 +14,7 @@ import javax.ejb.EntityContext;
  *
  * @author tcook
  */
-public abstract class ItemBean implements EntityBean {
+public abstract class ItemBean implements EntityBean,java.io.Serializable  {
 
     private EntityContext context;
     

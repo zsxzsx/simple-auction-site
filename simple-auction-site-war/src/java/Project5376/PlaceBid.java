@@ -28,8 +28,8 @@ import javax.rmi.PortableRemoteObject;
  */
 public class PlaceBid extends HttpServlet
 {
-    AuctionSessionRemote auction;
-    private AuctionSessionRemoteHome home;
+    auctionSessionRemote auction;
+    private auctionSessionRemoteHome home;
 
 
   public void init() throws ServletException
@@ -47,13 +47,13 @@ public class PlaceBid extends HttpServlet
      e.printStackTrace();
     }
   }
-    private AuctionSessionRemoteHome lookupHome() throws NamingException
+    private auctionSessionRemoteHome lookupHome() throws NamingException
   {
     Context ctx = getInitialContext();
     try
     {
       Object home = ctx.lookup("AuctionSessionBean");
-      return (AuctionSessionRemoteHome) PortableRemoteObject.narrow(home, AuctionSessionRemoteHome.class);
+      return (auctionSessionRemoteHome) PortableRemoteObject.narrow(home, auctionSessionRemoteHome.class);
     }
     catch(NamingException ne)
     {
