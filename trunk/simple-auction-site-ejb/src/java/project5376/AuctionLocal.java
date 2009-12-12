@@ -36,9 +36,9 @@ public interface AuctionLocal extends EJBLocalObject {
 
     void setSellerId(UserLocal sellerId);
 
-    Collection getPaymentCollection();
+    PaymentLocal getPayment();
 
-    void setPaymentCollection(Collection paymentCollection);
+    void setPayment(PaymentLocal payment);
 
     Collection getBidCollection();
 

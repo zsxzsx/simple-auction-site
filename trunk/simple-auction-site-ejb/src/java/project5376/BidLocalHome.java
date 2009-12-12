@@ -21,7 +21,7 @@ public interface BidLocalHome extends EJBLocalHome {
     
   //  project5376.BidLocal create(Integer key)  throws CreateException;
 
-    project5376.BidLocal create(Integer key, Integer bidAmt,Integer bidderId,Integer auctionNo)  throws CreateException;
+    project5376.BidLocal create(Integer key, Integer bidAmt, UserLocal bidderId, AuctionLocal auctionNo)  throws CreateException;
 
     Collection findByBidNo(Integer bidNo) throws javax.ejb.FinderException;
 

@@ -134,9 +134,9 @@ public abstract class AuctionBean  implements EntityBean,java.io.Serializable  {
 
 //    public abstract void setSellerId(Integer sellerId);
 
-    public abstract Collection getPaymentCollection();
+    public abstract PaymentLocal getPayment();
 
-    public abstract void setPaymentCollection(Collection paymentCollection);
+    public abstract void setPayment(PaymentLocal payment);
 
     public abstract Collection getBidCollection();
 

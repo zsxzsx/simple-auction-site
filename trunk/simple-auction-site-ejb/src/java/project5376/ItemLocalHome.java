@@ -19,7 +19,7 @@ public interface ItemLocalHome extends EJBLocalHome {
     project5376.ItemLocal findByPrimaryKey(java.lang.Integer key)  throws FinderException;
     
     project5376.ItemLocal create(java.lang.Integer key)  throws CreateException;
-    project5376.ItemLocal create(java.lang.Integer key, String name, String description, Integer condition)  throws CreateException;
+    project5376.ItemLocal create(java.lang.Integer key, String name, String description, Integer condition) throws CreateException;
 
     Collection findByItemNo(Integer itemNo) throws javax.ejb.FinderException;
 

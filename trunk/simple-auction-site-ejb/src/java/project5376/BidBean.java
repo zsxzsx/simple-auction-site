@@ -73,7 +73,7 @@ public abstract class BidBean implements EntityBean {
 
     // </editor-fold>
     
-   public Integer ejbCreate(Integer key, Integer bidAmt,Integer bidderId,Integer auctionNo)  throws CreateException
+   public Integer ejbCreate(Integer key, Integer bidAmt,UserLocal bidderId,AuctionLocal auctionNo)  throws CreateException
     {
        setBidNo(key);
        setBidAmt(bidAmt);
@@ -99,9 +99,10 @@ public abstract class BidBean implements EntityBean {
         return null;
     }
 */
-    public void ejbPostCreate(Integer key, Integer bidAmt,Integer bidderId,Integer auctionNo)
+    public void ejbPostCreate(Integer key, Integer bidAmt,UserLocal bidderId, AuctionLocal auctionNo)
     {
-        // TODO populate relationships here if appropriate
+        setAuctionNo(auctionNo);
+        setBidderId(bidderId);
     }
 /*    public void ejbPostCreate(java.lang.Integer key) {
         // TODO populate relationships here if appropriate
