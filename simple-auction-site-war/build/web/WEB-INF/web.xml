@@ -32,6 +32,14 @@
         <servlet-name>addAuctionServlet</servlet-name>
         <servlet-class>Project5376.addAuctionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PlaceBid</servlet-name>
+        <servlet-class>Project5376.PlaceBid</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddPaymentServlet</servlet-name>
+        <servlet-class>Project5376.AddPaymentServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -47,6 +55,14 @@
     <servlet-mapping>
         <servlet-name>addAuctionServlet</servlet-name>
         <url-pattern>/addAuctionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlaceBid</servlet-name>
+        <url-pattern>/PlaceBid</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddPaymentServlet</servlet-name>
+        <url-pattern>/AddPaymentServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

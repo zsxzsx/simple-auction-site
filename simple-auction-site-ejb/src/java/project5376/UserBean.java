@@ -161,7 +161,7 @@ public abstract class UserBean implements EntityBean, java.io.Serializable {
 
     public abstract Collection getPaymentCollection();
 
-    public abstract void setPaymentCollection(Collection paymentCollection);
+    public abstract void setPaymentCollection(Collection paymentCollectio);
 
     public abstract Collection getRatingCollection();
 
@@ -192,7 +192,14 @@ public ArrayList getUserBids()
         Iterator c = getBidCollection().iterator();
         while (c.hasNext())
         {
-            list.add(c.next());
+            Object o = c.next();
+            System.out.println("Class: " + o.getClass().getName());
+            if ( o instanceof BidLocal){
+                BidLocal bid = (BidLocal)o;
+                System.out.println("bidamt= "+ bid.getBidAmt()+" bid No "+ bid.getBidNo());
+            }
+            else System.out.println("Not Bid Local");
+            list.add(o);
         }
         return list;
     }
