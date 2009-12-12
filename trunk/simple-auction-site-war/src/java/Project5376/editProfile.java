@@ -76,8 +76,6 @@ public class editProfile extends HttpServlet {
                 out.println("<html>");
                 out.println("<head><title>gBay Registration</title></head>");
                 out.println("<body>");
-                out.println("<p>gBay Registration</p>");
-                out.println("<p> </p>");
                 out.println("<form method=\"POST\" action=\"" +
                                 response.encodeURL("editProfile") + "\">");
                 out.print("<p>ID(integer): <input type=\"text\" name=\"id\" value=\""+user.getUserNo()+"\" readonly></p>");

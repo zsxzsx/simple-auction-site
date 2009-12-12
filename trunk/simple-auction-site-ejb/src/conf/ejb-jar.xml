@@ -6,12 +6,23 @@
     <enterprise-beans>
         <session>
             <display-name>AuctionSessionSB</display-name>
-            <ejb-name>AuctionSessionBean</ejb-name>
-            <home>project5376.AuctionSessionRemoteHome</home>
-            <remote>project5376.AuctionSessionRemote</remote>
-            <local-home>project5376.AuctionSessionLocalHome</local-home>
-            <local>project5376.AuctionSessionLocal</local>
-            <ejb-class>project5376.AuctionSessionBean</ejb-class>
+            <ejb-name>auctionSessionBean</ejb-name>
+            <home>project5376.auctionSessionRemoteHome</home>
+            <remote>project5376.auctionSessionRemote</remote>
+            <local-home>project5376.auctionSessionLocalHome</local-home>
+            <local>project5376.auctionSessionLocal</local>
+            <ejb-class>project5376.auctionSessionBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+        </session>
+        <session>
+            <display-name>SearchItemSessionSB</display-name>
+            <ejb-name>SearchItemSessionBean</ejb-name>
+            <home>project5376.SearchItemSessionRemoteHome</home>
+            <remote>project5376.SearchItemSessionRemote</remote>
+            <local-home>project5376.SearchItemSessionLocalHome</local-home>
+            <local>project5376.SearchItemSessionLocal</local>
+            <ejb-class>project5376.SearchItemSessionBean</ejb-class>
             <session-type>Stateless</session-type>
             <transaction-type>Container</transaction-type>
         </session>
@@ -683,7 +694,14 @@
         </container-transaction>
         <container-transaction>
             <method>
-                <ejb-name>AuctionSessionBean</ejb-name>
+                <ejb-name>auctionSessionBean</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
+        <container-transaction>
+            <method>
+                <ejb-name>SearchItemSessionBean</ejb-name>
                 <method-name>*</method-name>
             </method>
             <trans-attribute>Required</trans-attribute>

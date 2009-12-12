@@ -3,6 +3,18 @@
 "-//BEA Systems, Inc.//DTD WebLogic 8.1.0 EJB//EN"
 "http://www.bea.com/servers/wls810/dtd/weblogic-ejb-jar.dtd" >
 <weblogic-ejb-jar>
+
+  <weblogic-enterprise-bean>
+    <ejb-name>SearchItemSessionBean</ejb-name>
+    <stateless-session-descriptor>
+      <pool></pool>
+      <stateless-clustering></stateless-clustering>
+    </stateless-session-descriptor>
+    <transaction-descriptor>
+    </transaction-descriptor>
+    <jndi-name>SearchItemSessionBean</jndi-name>
+  </weblogic-enterprise-bean>
+
   <weblogic-enterprise-bean>
     <ejb-name>auctionSessionBean</ejb-name>
     <stateless-session-descriptor>
@@ -17,7 +29,7 @@
     <transaction-descriptor>
     </transaction-descriptor>
 
-    <jndi-name>auctionSessionBean</jndi-name>
+    <jndi-name>AuctionSessionBean</jndi-name>
   </weblogic-enterprise-bean>
 
   <weblogic-enterprise-bean>

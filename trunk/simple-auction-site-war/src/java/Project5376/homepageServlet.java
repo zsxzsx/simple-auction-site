@@ -45,8 +45,8 @@ public class homepageServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    AuctionSessionRemote auction;
-    private AuctionSessionRemoteHome home;
+    auctionSessionRemote auction;
+    private auctionSessionRemoteHome home;
 
 
   public void init() throws ServletException
@@ -64,13 +64,13 @@ public class homepageServlet extends HttpServlet {
      e.printStackTrace();
     }
   }
-    private AuctionSessionRemoteHome lookupHome() throws NamingException
+    private auctionSessionRemoteHome lookupHome() throws NamingException
   {
     Context ctx = getInitialContext();
     try
     {
       Object home = ctx.lookup("AuctionSessionBean");
-      return (AuctionSessionRemoteHome) PortableRemoteObject.narrow(home, AuctionSessionRemoteHome.class);
+      return (auctionSessionRemoteHome) PortableRemoteObject.narrow(home, auctionSessionRemoteHome.class);
     }
     catch(NamingException ne)
     {
@@ -135,7 +135,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
        out.println("<title>Welcome to gBay! Logged In</title>");
        out.println("</head>");
        out.println("<body>");
-       out.println("<h1>Invalid userID.  Internal Error, contact administrator.</h1>");
+       out.println("<h3>You are not logged in. Please <a href=\"" + response.encodeURL("LoginServlet") + "\"> log in.</a></p></h3>");
        out.println("</body>");
        out.println("</html>");
      }
