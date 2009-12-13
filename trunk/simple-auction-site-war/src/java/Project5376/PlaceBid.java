@@ -52,14 +52,14 @@ public class PlaceBid extends HttpServlet
     Context ctx = getInitialContext();
     try
     {
-      Object home = ctx.lookup("AuctionSessionBean");
+      Object home = ctx.lookup("auctionSessionBean");
       return (auctionSessionRemoteHome) PortableRemoteObject.narrow(home, auctionSessionRemoteHome.class);
     }
     catch(NamingException ne)
     {
       log("The client was unable to lookup the EJB Home.Please make sure"+
           "that you have deployed the ejb with the JNDI name" +
-          "AuctionSessionBean.RR1172FacLookUpSessionHome on the WebLogic server at ");
+          "auctionSessionBean.RR1172FacLookUpSessionHome on the WebLogic server at ");
       throw ne;
     }
   }

@@ -30,8 +30,8 @@ import javax.rmi.PortableRemoteObject;
 public class AddPaymentServlet extends HttpServlet
 {
 
-    AuctionSessionRemote auction;
-    private AuctionSessionRemoteHome home;
+    private auctionSessionRemote auction;
+    private auctionSessionRemoteHome home;
 
    public void init() throws ServletException
   {
@@ -48,19 +48,19 @@ public class AddPaymentServlet extends HttpServlet
      e.printStackTrace();
     }
   }
-    private AuctionSessionRemoteHome lookupHome() throws NamingException
+    private auctionSessionRemoteHome lookupHome() throws NamingException
   {
     Context ctx = getInitialContext();
     try
     {
-      Object home = ctx.lookup("AuctionSessionBean");
-      return (AuctionSessionRemoteHome) PortableRemoteObject.narrow(home, AuctionSessionRemoteHome.class);
+      Object home = ctx.lookup("auctionSessionBean");
+      return (auctionSessionRemoteHome) PortableRemoteObject.narrow(home, auctionSessionRemoteHome.class);
     }
     catch(NamingException ne)
     {
       log("The client was unable to lookup the EJB Home.Please make sure"+
           "that you have deployed the ejb with the JNDI name" +
-          "AuctionSessionBean.RR1172FacLookUpSessionHome on the WebLogic server at ");
+          "auctionSessionBean.RR1172FacLookUpSessionHome on the WebLogic server at ");
       throw ne;
     }
   }

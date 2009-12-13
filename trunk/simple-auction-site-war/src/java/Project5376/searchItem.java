@@ -31,7 +31,7 @@ public class searchItem extends HttpServlet {
         try {
            searchitemhome = ServiceProvider.lookupSearchItemSession();
         }
-        catch (NamingException ne)
+        catch (Exception ne)
         {
             System.out.println("Naming Exception in search Servlet");
 //          throw new ServletException();
