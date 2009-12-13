@@ -23,8 +23,8 @@ import project5376.*;
 
 public class addAuctionServlet extends HttpServlet
 {
-  AuctionSessionRemote auction;
-  private AuctionSessionRemoteHome home;
+  auctionSessionRemote auction;
+  private auctionSessionRemoteHome home;
 
 
   private static void log2 (String s)
@@ -67,19 +67,19 @@ public class addAuctionServlet extends HttpServlet
     }
  }
 
-  private AuctionSessionRemoteHome lookupHome() throws NamingException
+  private auctionSessionRemoteHome lookupHome() throws NamingException
   {
     Context ctx = getInitialContext();
     try
     {
-      Object home = ctx.lookup("AuctionSessionBean");
-      return (AuctionSessionRemoteHome) PortableRemoteObject.narrow(home, AuctionSessionRemoteHome.class);
+      Object home = ctx.lookup("auctionSessionBean");
+      return (auctionSessionRemoteHome) PortableRemoteObject.narrow(home, auctionSessionRemoteHome.class);
     }
     catch(NamingException ne)
     {
       log2("The client was unable to lookup the EJB Home.Please make sure"+
           "that you have deployed the ejb with the JNDI name" +
-          "AuctionSessionBean.RR1172FacLookUpSessionHome on the WebLogic server at ");
+          "auctionSessionBean.RR1172FacLookUpSessionHome on the WebLogic server at ");
       throw ne;
     }
   }

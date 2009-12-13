@@ -69,14 +69,14 @@ public class homepageServlet extends HttpServlet {
     Context ctx = getInitialContext();
     try
     {
-      Object home = ctx.lookup("AuctionSessionBean");
+      Object home = ctx.lookup("auctionSessionBean");
       return (auctionSessionRemoteHome) PortableRemoteObject.narrow(home, auctionSessionRemoteHome.class);
     }
     catch(NamingException ne)
     {
       log("The client was unable to lookup the EJB Home.Please make sure"+
           "that you have deployed the ejb with the JNDI name" +
-          "AuctionSessionBean.RR1172FacLookUpSessionHome on the WebLogic server at ");
+          "auctionSessionBean.RR1172FacLookUpSessionHome on the WebLogic server at ");
       throw ne;
     }
   }
@@ -245,7 +245,61 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
            }
            out.println("</table>");
 
+
          }
+         try
+       {
+         auctionList = auction.getUserWinningBids(userNo);
+       }
+        catch (Exception e)
+       {
+         System.out.println("There was an error in getting the data. HomepageSerlet GetUserBids: " + e.getMessage());
+       }
+       if(auctionList.isEmpty())
+       {
+         out.println("<br /><br />You have no auctions that you have not paid for");
+         out.println("<p>");
+       }
+       else
+       {
+         out.println("<br /><br />Auctions Won!! Please click on Auction to make payment.");
+
+         out.println("<table border=\"1\">");
+
+         out.println("<tr>");
+         out.println("<th>Auction #</th>");
+         out.println("<th>Item</th>");
+         out.println("<th>Highest Bidder</th>");
+         out.println("<th>Bid</th>");
+         out.println("<th>Your Last Bid</th>");
+         out.println("<th>Close Date</th>");
+         out.println("</tr>");
+         for (int i = 0; i < auctionList.size(); i++)
+         {
+               Auction auc = (Auction)((ArrayList)auctionList).get(i);
+
+            try
+            {
+              out.println("<tr>");
+              auctionNo= auc.getAuctionNo();
+              out.println("<td><a href=" + response.encodeURL("AddPaymentServlet?auction="+auc.getAuctionNo()) + ">"+ auc.getAuctionNo() +"</a></td>");
+              out.println("<td>" + auc.getItemName() + "</td>");
+              out.println("<td>" + auc.getHighBidder() + "</td>");
+              out.println("<td>" + auc.getHighBid() + "</td>");
+              out.println("<td>" + auc.getUserBid() + "</td>");
+              out.println("<td>" + auc.getStopTime().toString() + "</td>");
+              out.println("</tr>");
+             }
+             catch (Exception e)
+             {
+               log("There was an error in getting  data. " + e.getMessage());
+             }
+           }
+           out.println("</table>");
+
+
+         }
+
          out.println("<p><a href=\"" + response.encodeURL("editProfile") + "\"> Edit Profile</a></p>");
          out.println("<p><a href=\"" + response.encodeURL("addAuctionServlet") + "\"> sell</a></p>");
        }

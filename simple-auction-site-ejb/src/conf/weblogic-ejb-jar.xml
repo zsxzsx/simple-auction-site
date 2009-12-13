@@ -29,7 +29,7 @@
     <transaction-descriptor>
     </transaction-descriptor>
 
-    <jndi-name>AuctionSessionBean</jndi-name>
+    <jndi-name>auctionSessionBean</jndi-name>
   </weblogic-enterprise-bean>
 
   <weblogic-enterprise-bean>
