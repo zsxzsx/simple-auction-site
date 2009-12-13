@@ -138,6 +138,9 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
         out.println("</p>");
         out.println("<br /><input type=submit value=\"Submit\">");
         out.println("</form>");
+        out.println("<script type=\"text/javascript\">");
+        out.println("document.addAuction.itemName.focus();");
+        out.println("</script>");
         out.println("</body>");
         out.println("</html>");
      }

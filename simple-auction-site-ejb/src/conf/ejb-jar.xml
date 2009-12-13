@@ -26,15 +26,7 @@
             <session-type>Stateless</session-type>
             <transaction-type>Container</transaction-type>
         </session>
-        <session>
-            <display-name>auctionSessionBeanSB</display-name>
-            <ejb-name>auctionSessionBeanBean</ejb-name>
-            <local-home>project5376.auctionSessionBeanLocalHome</local-home>
-            <local>project5376.auctionSessionBeanLocal</local>
-            <ejb-class>project5376.auctionSessionBeanBean</ejb-class>
-            <session-type>Stateless</session-type>
-            <transaction-type>Container</transaction-type>
-        </session>
+
         <entity>
             <display-name>AuctionEB</display-name>
             <ejb-name>AuctionBean</ejb-name>
@@ -723,12 +715,6 @@
             </method>
             <trans-attribute>Required</trans-attribute>
         </container-transaction>
-        <container-transaction>
-            <method>
-                <ejb-name>auctionSessionBeanBean</ejb-name>
-                <method-name>*</method-name>
-            </method>
-            <trans-attribute>Required</trans-attribute>
-        </container-transaction>
-        </assembly-descriptor>
+
+      </assembly-descriptor>
     </ejb-jar>

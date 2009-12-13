@@ -96,7 +96,9 @@ public static Context getInitialContext( ) throws javax.naming.NamingException
         out.println("<title>Welcome to gBay! Veiw Auction</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<h1>Invalid userID.  Internal Error, contact administrator.</h1>");
+        out.println("<h1>Invalid userID.  Please log in or contact administrator.</h1>");
+        out.println("<h3><a href=\"" + response.encodeURL("LoginServlet") + "\">Log in.</a></p></h3>");
+
         out.println("<p><a href=" + response.encodeURL("homepageServlet") + ">Return home</a></p>");
 
         out.println("</body>");
@@ -124,6 +126,7 @@ public static Context getInitialContext( ) throws javax.naming.NamingException
           out.println("Auction #:  "+ auc.getAuctionNo()+"<br />");
           out.println("Item Name:  " + auc.getItemName()+"<br />");
           out.println("Item Description:  " + auc.getItemDesc()+"<br />");
+          out.println("Item Condition:  " + auc.getCondition()+"<br />");
           out.println("Highest Bidder:  " + auc.getHighBidder()+"<br />");
           out.println("Highest Bid:  " + auc.getHighBid()+"<br />");
           out.println("Start Date:  " + auc.getStartTime().toString()+"<br />");

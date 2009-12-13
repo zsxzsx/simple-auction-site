@@ -18,4 +18,5 @@ public interface auctionSessionRemote extends EJBObject
   public ArrayList getUserWinningBids(Integer bidderId) throws RemoteException;
   public boolean pay(Integer userNo, Integer auctionNo, Integer payment, String cardNo,
                      String expDate, Integer code, String cardType) throws RemoteException;
+  public ArrayList getAuctionList() throws RemoteException;
 }
