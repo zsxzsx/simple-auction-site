@@ -633,6 +633,7 @@ public  String getItemName(Integer auctionNo) throws RemoteException
       return null;
     }
     String itemName=null;
+    ItemLocal itemInstance=null;
     String itemDesc=null;
     UserLocal sellerNo =null;
     String sellerId = "";
@@ -642,7 +643,7 @@ public  String getItemName(Integer auctionNo) throws RemoteException
     Integer userBidAmt=getHighBidForUser(auc, userNo);
     try
     {
-      ItemLocal itemInstance=auc.getItemNo();
+      itemInstance=auc.getItemNo();
       itemName = itemInstance.getItemName();
       itemDesc = itemInstance.getDescription();
       getHighBidInfo(auc);
@@ -658,12 +659,13 @@ public  String getItemName(Integer auctionNo) throws RemoteException
     }
     catch(Exception e)
     {
-      log("Aget item name in auction Session bean: "+e);
+      log("get item name in auction Session bean: "+e);
     }
     Auction auction = new Auction(auc.getAuctionNo(), auc.getStartTime(), auc.getStopTime(),
                                       itemName, itemDesc, bidAmt, bidder);
     auction.setSellerId(sellerId);
     auction.setSellerRating(sellerRating);
+    auction.setCondition(itemInstance.getCondition1());
     auction.setUserBid(userBidAmt);
     return auction;
   }
@@ -727,6 +729,51 @@ public  String getItemName(Integer auctionNo) throws RemoteException
     log("size of arrayList: " + auctionList.size() );
     return auctionList;
   }
+     public ArrayList getAuctionList()
+     {
+       ArrayList list = new ArrayList();
+       ArrayList auctionList = new ArrayList();
+       ItemLocal itemInstance=null;
+       try
+       {
+        Iterator c = aucHome.findAllAuctions().iterator();
+        while (c.hasNext())
+        {
+            list.add(c.next());
+        }
+       }
+       catch(Exception e)
+       {
+           log("failed to find all Auctions in auction session Bean: "+e);
+       }
+       for (int i = 0; i < list.size(); i++)
+       {
+         auc = (AuctionLocal)list.get(i);
+         String itemName=null;
+         String itemDesc=null;
+         try
+         {
+           itemInstance=auc.getItemNo();
+           itemName = itemInstance.getItemName();
+           itemDesc = itemInstance.getDescription();
+           getHighBidInfo(auc);
+          }
+          catch(Exception e)
+          {
+            log("get item name in auction Session bean: "+e);
+          }
+          Auction auction = new Auction(auc.getAuctionNo(), auc.getStartTime(), auc.getStopTime(),
+                                      itemName, itemDesc, bidAmt, bidder);
+          auction.setCondition(itemInstance.getCondition1());
+          java.util.Date curTime = new java.util.Date();
+          Timestamp currentTime = new Timestamp(curTime.getTime());
+          if (auc.getStopTime().after(currentTime))
+          {
+            auctionList.add(auction);
+          }
+        }
+        return auctionList;
+    }
 
     public ArrayList getUserWinningBids(Integer bidderId) throws RemoteException
   {

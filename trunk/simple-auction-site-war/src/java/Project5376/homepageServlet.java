@@ -146,7 +146,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
        out.println("<title>Welcome to gBay!</title>");
        out.println("</head>");
        out.println("<body>");
-       out.println("<h3>You are now logged in.</h3><br><br><h1>Welcome to gBay " + username  +"!!</h1>");
+       out.println("<h2>Welcome to gBay " + username  +"!!</h2>");
        ArrayList auctionList = null;
        
        try
@@ -157,7 +157,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
        {
          System.out.println("There was an error in getting the data. HomepageSerlet GetuserAuctions: " + e.getMessage());
        }
-       out.println("Selling Auctions");
+       out.println("<h3>Selling Auctions</h3>");
        if(auctionList.isEmpty())
        {
          out.println("You have no open auctions");
@@ -165,7 +165,8 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
        }
        else
        {
-         out.println("<table border=\"1\">");
+         ServiceProvider.print_header(out);
+         out.println("<table class=\"dataTable\" width=600 border=0>");
 
          out.println("<tr>");
          out.println("<th>Auction #</th>");
@@ -204,7 +205,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
        {
          System.out.println("There was an error in getting the data. HomepageSerlet GetUserBids: " + e.getMessage());
        }
-       out.println("Bidded on Auctions");
+       out.println("<h3>Bidded on Auctions</h3>");
        if(auctionList.isEmpty())
        {
          out.println("You have placed bids on no open auctions");
@@ -212,7 +213,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
        }
        else
        {
-         out.println("<table border=\"1\">");
+         out.println("<table class=\"dataTable\" width=600 border=0>");
 
          out.println("<tr>");
          out.println("<th>Auction #</th>");
@@ -257,14 +258,14 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
        }
        if(auctionList.isEmpty())
        {
-         out.println("<br /><br />You have no auctions that you have not paid for");
+         out.println("<br />You have no auctions that you have not paid for");
          out.println("<p>");
        }
        else
        {
-         out.println("<br /><br />Auctions Won!! Please click on Auction to make payment.");
+         out.println("<br /><br /><h3>Auctions Won!! Please click on Auction to make payment.</h3>");
 
-         out.println("<table border=\"1\">");
+         out.println("<table class=\"dataTable\" width=600 border=0>");
 
          out.println("<tr>");
          out.println("<th>Auction #</th>");
@@ -300,8 +301,6 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
 
          }
 
-         out.println("<p><a href=\"" + response.encodeURL("editProfile") + "\"> Edit Profile</a></p>");
-         out.println("<p><a href=\"" + response.encodeURL("addAuctionServlet") + "\"> sell</a></p>");
        }
        out.println("</body>");
        out.println("</html>");

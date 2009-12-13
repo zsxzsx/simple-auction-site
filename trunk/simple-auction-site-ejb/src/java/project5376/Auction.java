@@ -22,7 +22,7 @@ public class Auction implements java.io.Serializable
     private Integer userBid;
     private String sellerId;
     private double sellerRating;
-
+    private String condition;
 
     public Auction(Integer aucNo, Timestamp start, Timestamp stop, String name, String desc,
                     Integer hiBid, String hiBidder)
@@ -127,5 +127,43 @@ public class Auction implements java.io.Serializable
     public double getSellerRating()
     {
        return sellerRating;
+    }
+    public void setCondition(Integer cond)
+    {
+       switch(cond.intValue())
+       {
+
+            case 1:
+            condition="New";
+            break;
+
+            case 2:
+            condition="Like new";
+            break;
+
+            case 3:
+            condition="Fine";
+            break;
+
+            case 4:
+            condition="Very Good";
+            break;
+
+            case 5:
+            condition="Good";
+            break;
+
+            case 6:
+            condition="Fair";
+            break;
+
+            default:
+            condition="Poor";
+        }
+
+    }
+    public String getCondition()
+    {
+       return condition;
     }
 }
