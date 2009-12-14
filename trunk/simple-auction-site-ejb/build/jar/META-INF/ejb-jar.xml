@@ -5,7 +5,7 @@
     <display-name>simple-auction-site-ejb</display-name>
     <enterprise-beans>
         <session>
-            <display-name>AuctionSessionSB</display-name>
+            <display-name>auctionSessionSB</display-name>
             <ejb-name>auctionSessionBean</ejb-name>
             <home>project5376.auctionSessionRemoteHome</home>
             <remote>project5376.auctionSessionRemote</remote>
@@ -26,6 +26,7 @@
             <session-type>Stateless</session-type>
             <transaction-type>Container</transaction-type>
         </session>
+
         <entity>
             <display-name>AuctionEB</display-name>
             <ejb-name>AuctionBean</ejb-name>
@@ -64,6 +65,15 @@
                 </query-method>
                 <ejb-ql>SELECT OBJECT(a) FROM Auction AS a WHERE a.auctionNo = ?1</ejb-ql>
             </query>
+            <query>
+                <query-method>
+                    <method-name>findAuctionByItem</method-name>
+                    <method-params>
+                        <method-param>project5376.ItemLocal</method-param>
+                    </method-params>
+                </query-method>
+                <ejb-ql>SELECT OBJECT(a) FROM Auction AS a WHERE a.itemNo = ?1</ejb-ql>
+            </query>
             </entity>
         <entity>
             <display-name>PaymentEB</display-name>
@@ -95,6 +105,14 @@
                 <field-name>securityCode</field-name>
             </cmp-field>
             <primkey-field>paymentNo</primkey-field>
+            <query>
+                <query-method>
+                    <method-name>findAllPayments</method-name>
+                    <method-params>
+                    </method-params>
+                </query-method>
+                <ejb-ql>SELECT OBJECT(p) FROM Payment AS p</ejb-ql>
+            </query>
             <query>
                 <query-method>
                     <method-name>findByPaymentNo</method-name>
@@ -189,7 +207,7 @@
                         <method-param>java.lang.String</method-param>
                     </method-params>
                 </query-method>
-                <ejb-ql>SELECT OBJECT(i) FROM Item AS i WHERE i.itemName = ?1</ejb-ql>
+                <ejb-ql>SELECT OBJECT(i) FROM Item AS i WHERE i.itemName LIKE ?1</ejb-ql>
             </query>
             <query>
                 <query-method>
@@ -199,6 +217,15 @@
                     </method-params>
                 </query-method>
                 <ejb-ql>SELECT OBJECT(i) FROM Item AS i WHERE i.description = ?1</ejb-ql>
+            </query>
+            <query>
+                <query-method>
+                    <method-name>findByDescriptionPattern</method-name>
+                    <method-params>
+                        <method-param>java.lang.String</method-param>
+                    </method-params>
+                </query-method>
+                <ejb-ql>SELECT OBJECT(i) FROM Item AS i WHERE i.description LIKE ?1</ejb-ql>
             </query>
             <query>
                 <query-method>
@@ -518,7 +545,7 @@
                 </relationship-role-source>
                 <cmr-field>
                     <cmr-field-name>paymentCollection</cmr-field-name>
-                    <cmr-field-type>java.util.Collection</cmr-field-type>
+                    <cmr-field-type>java.util.Collection</cmr-field-type> 
                 </cmr-field>
             </ejb-relationship-role>
         </ejb-relation>
@@ -526,7 +553,7 @@
             <ejb-relation-name>Payment-Auction</ejb-relation-name>
             <ejb-relationship-role>
                 <ejb-relationship-role-name>Payment has one Auction</ejb-relationship-role-name>
-                <multiplicity>Many</multiplicity>
+                <multiplicity>One</multiplicity>
                 <relationship-role-source>
                     <ejb-name>PaymentBean</ejb-name>
                 </relationship-role-source>
@@ -542,8 +569,8 @@
                     <ejb-name>AuctionBean</ejb-name>
                 </relationship-role-source>
                 <cmr-field>
-                    <cmr-field-name>paymentCollection</cmr-field-name>
-                    <cmr-field-type>java.util.Collection</cmr-field-type>
+                    <cmr-field-name>payment</cmr-field-name>
+       <!--             <cmr-field-type>java.util.Collection</cmr-field-type> -->
                 </cmr-field>
             </ejb-relationship-role>
         </ejb-relation>
@@ -706,5 +733,6 @@
             </method>
             <trans-attribute>Required</trans-attribute>
         </container-transaction>
-        </assembly-descriptor>
+
+      </assembly-descriptor>
     </ejb-jar>

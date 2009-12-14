@@ -81,24 +81,79 @@ public class ServiceProvider {
       throw ne;
     }
   }
+  public static auctionSessionRemoteHome lookupAuctionHome() throws NamingException
+  {
+    Context ctx = getInitialContext();
+    try
+    {
+      Object home = ctx.lookup("auctionSessionBean");
+      return (auctionSessionRemoteHome) PortableRemoteObject.narrow(home, auctionSessionRemoteHome.class);
+    }
+    catch(NamingException ne)
+    {
+      System.out.println("The client was unable to lookup the EJB Home.Please make sure"+
+          "that you have deployed the ejb with the JNDI name" +
+          "auctionSessionBean.RR1172FacLookUpSessionHome on the WebLogic server at ");
+      throw ne;
+    }
+  }
 
   public static String get_items_html_table(Collection col) {
 
         String itemall = "";
         Iterator it;
+        auctionSessionRemote auction=null;
+        auctionSessionRemoteHome auchome=null;
+
+        try
+        {
+           auchome = ServiceProvider.lookupAuctionHome();
+        }
+        catch (Exception ne2)
+        {
+            System.out.println("Naming Exception in search Servlet");
+//          throw new ServletException();
+        }
+        try
+        {
+            auction = auchome.create();
+        }
+        catch (CreateException ne3)
+        {
+            System.out.println("Create Exception in search Servlet");
+            //throw new ServletException();
+        }
+        catch (RemoteException ne4)
+        {
+            System.out.println("Create Exception in search Servlet");
+            //throw new ServletException();
+        }
 
         if(!col.isEmpty()) {
             itemall += "<table class=\"dataTable\" width=600 border=0><tr><th>Item No</th><th>Item Name</th><th>Description</th><th>Condition</th></tr>";
             it = col.iterator();
+            try{
             while (it.hasNext()) {
                     ItemLocal locitem = (ItemLocal)it.next();
-                    itemall += "<tr><td>" + locitem.getItemNo() + "</td>";
+                     // out.println("<td><a href=" + response.encodeURL("PlaceBid?auction="+auc.getAuctionNo())
+                    //     +   ">"+ auc.getAuctionNo() +"</a></td>");
+                                        
+/// tcc - todo: fix this response encode stuff:
+//                    itemall += "<tr><td><a href=" + response.encodeURL("PlaceBid?auction="
+                      itemall += "<tr><td><a href=PlaceBid?auction="
+                            +auction.getAuctionNoFromItem(locitem.getItemNo()) + ">"
+                            + locitem.getItemNo() + "</td>";
                     itemall += "<td>" + locitem.getItemName() + "</td>";
                     itemall += "<td>" + locitem.getDescription() + "</td>";
                     itemall += "<td>" + locitem.getCondition1() + "</td></tr>";
             }
+            }catch(Exception e){
+                System.out.println("exception in ServiceProvier.write_table");
+            }
             itemall += "</table>";
 
+        } else {
+            itemall += "No items found matching your request.";
         }
         return itemall;
     }
@@ -125,7 +180,5 @@ public class ServiceProvider {
         out.close();
     }
 
-  public static void print_header(){
 
-  }
 }

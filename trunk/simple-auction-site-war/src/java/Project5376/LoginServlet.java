@@ -135,7 +135,7 @@ public class LoginServlet extends HttpServlet
                       response.encodeURL("LoginServlet?action=register.do") + "\">");
         out.println("<div align=\"justify\"><table class=\"dataTable\" width=600 border=0><tbody>");
 
-        out.print("<tr><td>ID(integer): <input type=\"text\" name=\"id\"></td>");
+//        out.print("<tr><td>ID(integer): <input type=\"text\" name=\"id\"></td>");
         out.print("<td>Email: <input align=\"right\" type=\"text\" name=\"email\"></td></tr>");
 
         out.print("<tr><td>Username: <input align=\"right\" type=\"text\" name=\"username\"></td>");
@@ -249,21 +249,22 @@ public class LoginServlet extends HttpServlet
          String result = register_user(request);
 
          out.println("<html>");
-         out.println("<head><title>gBay Registration</title></head>");
+         Project5376.ServiceProvider.print_header(out);
          out.println("<body>");
-         out.println("<p>gBay Registration</p>");
-         out.println("<p> </p>");
-         out.print("<p>id: " + request.getParameter("id") + "</p>");
-         out.print("<p>Username: " + request.getParameter("username") + "</p>");
-         out.print("<p>Password: " + request.getParameter("password") + "</p>");
-         out.print("<p>First Name: " + request.getParameter("firstname") + "</p>");
-         out.print("<p>Last Name: " + request.getParameter("lastname") + "</p>");
-         out.print("<p>Address: " + request.getParameter("address1") + "</p>");
-         out.print("<p>Address1: " + request.getParameter("address2") + "</p>");
-         out.print("<p>City: " + request.getParameter("city") + "</p>");
-         out.print("<p>State: " + request.getParameter("state") + "</p>");
-         out.print("<p>Zip Code: " + request.getParameter("zip") + "</p>");
-         out.print("<p>Email: " + request.getParameter("email") + "</p>");
+         out.println("<h3>You have sucessfully registered with gBay Registration  " + request.getParameter("username"));
+         out.println("<h3><br>Now please<a href=\"LoginServlet\"> log in.</a><br><br>");
+         out.println("<table class=\"dataTable\" width=600 border=0><tbody>");
+         out.print("<tr><td>Email: " + request.getParameter("email") + "</td>");
+         out.print("<td>Username: " + request.getParameter("username") + "</td></tr>");
+         out.print("<tr><td>Password: " + request.getParameter("password") + "</td>");
+         out.print("<td>First Name: " + request.getParameter("firstname") + "</td></tr>");
+         out.print("<tr><td>Last Name: " + request.getParameter("lastname") + "</td>");
+         out.print("<td>Address: " + request.getParameter("address1") + "</td></tr>");
+         out.print("<tr><td>Address1: " + request.getParameter("address2") + "</td>");
+         out.print("<td>City: " + request.getParameter("city") + "</td></tr>");
+         out.print("<tr><td>State: " + request.getParameter("state") + "</td>");
+         out.print("<td>Zip Code: " + request.getParameter("zip") + "</td></tr>");
+         out.print("</table>");
          out.println("</body></html>");
       }
 
@@ -295,10 +296,39 @@ public class LoginServlet extends HttpServlet
     Collection user_col=null;
     Iterator it=null;
     UserLocal user=null;
+// tcc todo  findallusers get pk
+
+     int userPk = 0;
+     try
+     {
+     user_col = (Collection)userhome.findAllUsers();
+     }
+      catch (Exception e)
+      {
+	    System.out.println("User Primary Key coll find error: "+e);
+      }
+     try
+     {
+      Iterator it1 = user_col.iterator();
+      while (it1.hasNext())
+      {
+        user = (UserLocal) PortableRemoteObject.narrow(it1.next(), UserLocal.class);
+
+        if ((user.getUserNo()).intValue() > userPk)
+        {
+          userPk = (user.getUserNo()).intValue();
+        }
+      }
+    }
+    catch (Exception e)
+    {
+	    System.out.println("User Primary Key find error: "+e);
+    }
 
     try
     {
-      userhome.create(  new Integer(request.getParameter("id")), request.getParameter("username"), request.getParameter("password"),
+//      userhome.create(  new Integer(request.getParameter("id")), request.getParameter("username"), request.getParameter("password"),
+      userhome.create(  new Integer(userPk+1), request.getParameter("username"), request.getParameter("password"),
          request.getParameter("firstname"), request.getParameter("lastname"), request.getParameter("address1"),
          request.getParameter("address2"),request.getParameter("city"), request.getParameter("state"),
          request.getParameter("zip"),request.getParameter("email"));

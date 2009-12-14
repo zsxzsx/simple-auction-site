@@ -76,23 +76,21 @@ public class editProfile extends HttpServlet {
                 out.println("<html>");
                 out.println("<head><title>gBay Registration</title></head>");
                 out.println("<body>");
-                out.println("<form method=\"POST\" action=\"" +
-                                response.encodeURL("editProfile") + "\">");
-                out.print("<p>ID(integer): <input type=\"text\" name=\"id\" value=\""+user.getUserNo()+"\" readonly></p>");
-                out.print("<p>Username: <input type=\"text\" name=\"username\" value=\""+user.getUserId()+"\"></p>");
-                out.print("<p>Password: <input type=\"text\" name=\"password\" value=\""+user.getPassword()+"\"></p>");
-                out.print("<p>First Name: <input type=\"text\" name=\"firstname\" value=\""+user.getFirstName()+"\"></p>");
-                out.print("<p>Last Name: <input type=\"text\" name=\"lastname\" value=\""+user.getLastName()+"\"></p>");
-                out.print("<p>Address: <input type=\"text\" name=\"address1\" value=\""+user.getAddress1()+"\"></p>");
-                out.print("<p>Address1: <input type=\"text\" name=\"address2\" value=\""+user.getAddress2()+"\"></p>");
-//                out.print("<p>City: <input type=\"text\" name=\"city\" value=\""+user.getCity()+"\"></p>");
-                out.print("<p>State: <input type=\"text\" name=\"state\" value=\""+user.getState()+"\"></p>");
-                out.print("<p>Zip: <input type=\"text\" name=\"zip\" value=\""+user.getZipCode()+"\"></p>");
-                out.print("<p>Email: <input type=\"text\" name=\"email\" value=\""+user.getEmail()+"\"></p>");
-                out.print("<p><input type=\"submit\" ");
-
-                out.println("name=\"Submit\" value=\"Update\"></p>");
-                out.println("</form>");
+                out.print("<form method=\"POST\" action=\"" + response.encodeURL("editProfile") + "\">");
+                out.print("<table class=\"dataTable\" width=600 border=0><tbody>");
+                out.print("<tr><td>Username: <input type=\"text\" name=\"username\" value=\""+user.getUserId()+"\"></td>");
+                out.print("<td>Password: <input type=\"text\" name=\"password\" value=\""+user.getPassword()+"\"></td></tr>");
+                out.print("<tr><td>First Name: <input type=\"text\" name=\"firstname\" value=\""+user.getFirstName()+"\"></td>");
+                out.print("<td>Last Name: <input type=\"text\" name=\"lastname\" value=\""+user.getLastName()+"\"></td></tr>");
+                out.print("<tr><td>Address: <input type=\"text\" name=\"address1\" value=\""+user.getAddress1()+"\"></td>");
+                out.print("<td>Address1: <input type=\"text\" name=\"address2\" value=\""+user.getAddress2()+"\"></td></tr>");
+//                out.print("City: <input type=\"text\" name=\"city\" value=\""+user.getCity()+"\">");
+                out.print("<tr><td>State: <input type=\"text\" name=\"state\" value=\""+user.getState()+"\"></td>");
+                out.print("<tr><td>Zip: <input type=\"text\" name=\"zip\" value=\""+user.getZipCode()+"\"></td></tr>");
+                out.print("<tr><td>Email: <input type=\"text\" name=\"email\" value=\""+user.getEmail()+"\"></td>");
+                out.print("<td><input type=\"submit\" name=\"Submit\" value=\"Update\"></td></tr>");
+                out.println("</tbody></form>");
+ 
                 out.println("</body></html>");
                 break;  // in case there are more than one with the same username todo: need to check this if that can happen, or prevent
             }
@@ -169,7 +167,7 @@ public class editProfile extends HttpServlet {
         out.println("</head>");
         out.println("<body>");
         out.println("<h3>Profile successfully updated.</h3>");
-        out.println("<p><a href=\"" + response.encodeURL("homepageServlet") + "\"> return to home page</a></p>");
+        out.println("<a href=\"" + response.encodeURL("homepageServlet") + "\"> return to home page</a>");
         out.println("</body>");
         out.println("</html>");
         out.close();

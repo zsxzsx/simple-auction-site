@@ -619,6 +619,37 @@ public  String getItemName(Integer auctionNo) throws RemoteException
     return auctionList;
     }
 
+  public Integer getAuctionNoFromItem(Integer ItemNo) throws RemoteException
+  {
+    log("Made it to Get Auction No from item no itemNo=" + ItemNo);
+    try{
+        Collection col = (Collection)itemHome.findByItemNo(ItemNo);
+        Iterator it = col.iterator();
+        ItemLocal item=null;
+    
+        while (it.hasNext())
+        {
+            item = (ItemLocal) PortableRemoteObject.narrow(it.next(), ItemLocal.class);
+            System.out.println("ITEM FOUND! itemNo=" + item.getItemNo());
+        }
+    } catch (Exception e)
+    {
+      log("Exception Get Auction No from item- find by itemNo: "+e);
+      return null;
+    }
+    try
+    {
+        auc= aucHome.findAuctionByItem(item);
+    }
+    catch (Exception e)
+    {
+      log("Get Auction Details - find by itemNo: "+e);
+      return null;
+    }
+    Integer aucNo = auc.getAuctionNo();
+    System.out.println("Auction number from lookup is: ");
+    return aucNo;
+  }
 
   public Auction getAuctionDetails(Integer auctionNo, Integer userNo) throws RemoteException
   {

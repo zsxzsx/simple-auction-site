@@ -81,26 +81,25 @@ public class SearchItemSessionBean implements SessionBean {
 
     }
 
-    public Collection SearchItemsByName(String description) {
+    public String SearchItemsByName(String description) {
        //Collection findByItemName(String itemName) throws javax.ejb.FinderException;
         Collection col=null;
+        String str="";
         try{
-            col = itemhome.findByItemName(description);
+            col = itemhome.findByItemName("%" + description + "%");
+            str = ServiceProvider.get_items_html_table(col);
         }catch (FinderException fe){
             System.out.println("Finder exception in SearchItem Session bean.");
         }
-        return col;
+        return str;
     }
 
     public String SearchItemsByDescription(String description) {
         String str="";
-        System.out.println("HERE SeachItembyDESC session bean");
         Collection col=null;
         try{
-            System.out.println("HERE 11 SeachItembyDESC session bean");
-            col = itemhome.findByDescription(description);
+            col = itemhome.findByDescriptionPattern("%" + description + "%");
             str = ServiceProvider.get_items_html_table(col);
-            System.out.println("HERE 22 SeachItembyDESC session bean\n str="+str);
         }catch (FinderException fe){
             System.out.println("Finder exception in SearchItem Session bean.");
         }
@@ -110,10 +109,8 @@ public class SearchItemSessionBean implements SessionBean {
         String str="";
         Collection col=null;
         try{
-            System.out.println("HERE 11 SeachItembyDESC session bean");
             col = itemhome.findAllItems();
             str = ServiceProvider.get_items_html_table(col);
-            System.out.println("HERE 22 SeachItembyDESC session bean\n str="+str);
         }catch (FinderException fe){
             System.out.println("Finder exception in SearchItem Session bean.");
         }

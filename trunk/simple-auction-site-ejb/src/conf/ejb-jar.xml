@@ -65,6 +65,15 @@
                 </query-method>
                 <ejb-ql>SELECT OBJECT(a) FROM Auction AS a WHERE a.auctionNo = ?1</ejb-ql>
             </query>
+            <query>
+                <query-method>
+                    <method-name>findAuctionByItem</method-name>
+                    <method-params>
+                        <method-param>project5376.ItemLocal</method-param>
+                    </method-params>
+                </query-method>
+                <ejb-ql>SELECT OBJECT(a) FROM Auction AS a WHERE a.itemNo = ?1</ejb-ql>
+            </query>
             </entity>
         <entity>
             <display-name>PaymentEB</display-name>
@@ -198,7 +207,7 @@
                         <method-param>java.lang.String</method-param>
                     </method-params>
                 </query-method>
-                <ejb-ql>SELECT OBJECT(i) FROM Item AS i WHERE i.itemName = ?1</ejb-ql>
+                <ejb-ql>SELECT OBJECT(i) FROM Item AS i WHERE i.itemName LIKE ?1</ejb-ql>
             </query>
             <query>
                 <query-method>
@@ -208,6 +217,15 @@
                     </method-params>
                 </query-method>
                 <ejb-ql>SELECT OBJECT(i) FROM Item AS i WHERE i.description = ?1</ejb-ql>
+            </query>
+            <query>
+                <query-method>
+                    <method-name>findByDescriptionPattern</method-name>
+                    <method-params>
+                        <method-param>java.lang.String</method-param>
+                    </method-params>
+                </query-method>
+                <ejb-ql>SELECT OBJECT(i) FROM Item AS i WHERE i.description LIKE ?1</ejb-ql>
             </query>
             <query>
                 <query-method>

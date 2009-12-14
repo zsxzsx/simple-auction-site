@@ -14,6 +14,8 @@ import java.util.Collection;
  */
 public interface SearchItemSessionRemote extends EJBObject {
 
+    public String SearchItemsByName(String description) throws RemoteException;
+
     public String SearchItemsByDescription(String description) throws RemoteException;
     public String SearchItemsAll() throws RemoteException;
     
