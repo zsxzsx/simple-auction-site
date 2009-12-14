@@ -113,14 +113,14 @@ public class searchItem extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-
+        String str="";
         String item_desc = request.getParameter("item_desc");
-
-        System.out.println("ITEM DESC:" + item_desc);
-        System.out.println("HERE 0000");
-        String str=searchitemlocal.SearchItemsByDescription(item_desc);
-        System.out.println("HERE 1111");
-
+        String action = request.getParameter("action");
+        if(action == null){
+            str=searchitemlocal.SearchItemsByName(item_desc);
+        } else if (action.equals("byDesc")){
+            str=searchitemlocal.SearchItemsByDescription(item_desc);
+        }
         response.setContentType("text/html;charset=UTF-8");
 
         PrintWriter out = response.getWriter();
@@ -163,11 +163,16 @@ public class searchItem extends HttpServlet {
                 out.println("<title>Servlet searchItem</title>");
                 out.println("</head>");
                 out.println("<body>");
+
                 out.println("<p><a href=\"searchItem?action=showAll\">list all items</a></p><br><br>");
                 out.println("<form id=\"form1\" name=\"form1\" method=\"post\" action=\"searchItem\">");
                 out.println("<label><input type=\"text\" name=\"item_desc\" /></label><label>");
-                out.println("<input type=\"submit\" name=\"SEARCH\" value=\"Search Items\" /></label></form>");
-                //out.println("<h3>This is search Servlet</h3>");
+                out.println("<input type=\"submit\" name=\"SEARCH\" value=\"Search Items by Name\" /></label></form>");
+
+                out.println("<br><form id=\"form2\" name=\"form2\" method=\"post\" action=\"searchItem?action=byDesc\">");
+                out.println("<label><input type=\"text\" name=\"item_desc\" /></label><label>");
+                out.println("<input type=\"submit\" name=\"SEARCH\" value=\"Search Items by Description\" /></label></form>");
+
                 out.println("<script type=\"text/javascript\">");
                 out.println("document.form1.item_desc.focus();");
                 out.println("</script>");

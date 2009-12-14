@@ -25,6 +25,10 @@
         <servlet-class>Project5376.homepageServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>searchItem</servlet-name>
+        <servlet-class>Project5376.searchItem</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>editProfile</servlet-name>
         <servlet-class>Project5376.editProfile</servlet-class>
     </servlet>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>homepageServlet</servlet-name>
         <url-pattern>/homepageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>searchItem</servlet-name>
+        <url-pattern>/searchItem</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>editProfile</servlet-name>

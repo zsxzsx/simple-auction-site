@@ -21,6 +21,8 @@ public interface AuctionRemoteHome extends EJBHome{
     project5376.AuctionRemote create(java.lang.Integer key)  throws CreateException, RemoteException;
 
 //    project5376.AuctionRemote create(Integer auctionNo, UserLocal sellerId, ItemLocal itemNo, Timestamp startTime, Timestamp stopTime)  throws CreateException, RemoteException;
+    
+    project5376.AuctionRemote findAuctionByItem(project5376.ItemLocal ItemNo) throws javax.ejb.FinderException, RemoteException;
 
     project5376.AuctionRemote findByAuctionNo(Integer auctionNo) throws javax.ejb.FinderException, RemoteException;
 
